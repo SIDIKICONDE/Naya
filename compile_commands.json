@@ -1,0 +1,22 @@
+[
+  {
+    "directory": "/Users/m1/Desktop/Naya",
+    "file": "shared/NativeModuleEQ.cpp",
+    "command": "clang++ -std=c++17 -I./node_modules/react-native/ReactCommon -I./node_modules/react-native/ReactCommon/jsi -I./node_modules/react-native/ReactCommon/turbomodule/core -I./node_modules/react-native/ReactCommon/react/nativemodule/core -I./shared -I./specs -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DWITH_JSC_EXTRA_TRACING=1 -c shared/NativeModuleEQ.cpp"
+  },
+  {
+    "directory": "/Users/m1/Desktop/Naya",
+    "file": "shared/NativeModuleEQ.h",
+    "command": "clang++ -std=c++17 -I./node_modules/react-native/ReactCommon -I./node_modules/react-native/ReactCommon/jsi -I./node_modules/react-native/ReactCommon/turbomodule/core -I./node_modules/react-native/ReactCommon/react/nativemodule/core -I./shared -I./specs -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DWITH_JSC_EXTRA_TRACING=1 -c shared/NativeModuleEQ.h"
+  },
+  {
+    "directory": "/Users/m1/Desktop/Naya",
+    "file": "ios/shared/NativeModuleEQ.cpp",
+    "command": "clang++ -std=c++17 -I./node_modules/react-native/ReactCommon -I./node_modules/react-native/ReactCommon/jsi -I./node_modules/react-native/ReactCommon/turbomodule/core -I./node_modules/react-native/ReactCommon/react/nativemodule/core -I./shared -I./ios/shared -I./specs -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DWITH_JSC_EXTRA_TRACING=1 -c ios/shared/NativeModuleEQ.cpp"
+  },
+  {
+    "directory": "/Users/m1/Desktop/Naya",
+    "file": "ios/shared/NativeModuleEQ.h",
+    "command": "clang++ -std=c++17 -I./node_modules/react-native/ReactCommon -I./node_modules/react-native/ReactCommon/jsi -I./node_modules/react-native/ReactCommon/turbomodule/core -I./node_modules/react-native/ReactCommon/react/nativemodule/core -I./shared -I./ios/shared -I./specs -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DWITH_JSC_EXTRA_TRACING=1 -c ios/shared/NativeModuleEQ.h"
+  }
+]

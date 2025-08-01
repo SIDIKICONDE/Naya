@@ -1,0 +1,43 @@
+CompileFlags:
+  Add:
+    # React Native headers
+    - -I./node_modules/react-native/ReactCommon
+    - -I./node_modules/react-native/ReactCommon/jsi
+    - -I./node_modules/react-native/ReactCommon/turbomodule/core
+    - -I./node_modules/react-native/ReactCommon/react/nativemodule/core
+    - -I./node_modules/react-native/ReactAndroid/src/main/jni/react/jni
+
+    # Project headers
+    - -I./shared
+    - -I./ios/shared
+    - -I./specs
+
+    # Generated headers (React Native Codegen)
+    - -I./android/app/build/generated/rncli/src/main/jni
+    - -I./ios/build/generated/rncli/src/main/jni
+
+    # Android specific
+    - -I./android/app/src/main/jni
+
+    # C++ standard
+    - -std=c++17
+    - -DANDROID
+    - -D__ANDROID_API__=21
+
+    # Common defines
+    - -DFOLLY_NO_CONFIG
+    - -DFOLLY_MOBILE=1
+    - -DFOLLY_USE_LIBCPP=1
+    - -DWITH_JSC_EXTRA_TRACING=1
+
+  Remove:
+    # Remove problematic flags
+    - -march=*
+    - -mtune=*
+
+Diagnostics:
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
+
+Index:
+  Background: Build
