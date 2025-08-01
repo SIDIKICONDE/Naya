@@ -23,6 +23,13 @@ target 'Naya' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  # === DÉPENDANCES AUDIO ÉGALISEUR ===
+  # Utilisation des frameworks iOS natifs pour l'audio
+  # AudioKit et autres dépendances seront ajoutées si nécessaire
+  
+  # Configuration pour utiliser les bibliothèques Homebrew via CMake
+  # FFmpeg, FFTW, etc. seront linkées directement dans le code C++
+
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(

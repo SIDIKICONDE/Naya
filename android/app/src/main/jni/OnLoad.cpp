@@ -29,11 +29,14 @@
 
 #include <DefaultComponentsRegistry.h>
 #include <DefaultTurboModuleManagerDelegate.h>
-#include <NativeModuleEQ.h>
+
 #include <autolinking.h>
 #include <fbjni/fbjni.h>
 #include <react/renderer/componentregistry/ComponentDescriptorProviderRegistry.h>
 #include <rncore.h>
+
+// === ÉGALISEUR AUDIO INCLUDES ===
+// #include <NativeAudioEqualizer.h>  // TODO: Activer quand NativeAudioEqualizer.h sera implémenté
 
 #ifdef REACT_NATIVE_APP_CODEGEN_HEADER
 #include REACT_NATIVE_APP_CODEGEN_HEADER
@@ -72,9 +75,11 @@ cxxModuleProvider(const std::string &name,
   //   return std::make_shared<NativeCxxModuleExample>(jsInvoker);
   // }
 
-  if (name == NativeModuleEQ::kModuleName) {
-    return std::make_shared<NativeModuleEQ>(jsInvoker);
-  }
+  // === ÉGALISEUR AUDIO MODULE ===
+  // TODO: Activer quand NativeAudioEqualizer sera implémenté
+  // if (name == facebook::react::NativeAudioEqualizer::kModuleName) {
+  //   return std::make_shared<facebook::react::NativeAudioEqualizer>(jsInvoker);
+  // }
 
   // And we fallback to the CXX module providers autolinked
   return autolinking_cxxModuleProvider(name, jsInvoker);
@@ -94,8 +99,6 @@ javaModuleProvider(const std::string &name,
   // return rncore_ModuleProvider(name, params);
 
   // We link app local modules if available
-  // Note: NativeModuleEQ is a C++ module, not a Java module
-  // so we don't need REACT_NATIVE_APP_MODULE_PROVIDER here
 
   // We first try to look up core modules
   if (auto module = rncore_ModuleProvider(name, params)) {

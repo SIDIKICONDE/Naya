@@ -11,6 +11,14 @@ CompileFlags:
     - -I./shared
     - -I./ios/shared
     - -I./specs
+    - -I./src/native
+    - -I./src/native/audio
+    - -I./src/native/dsp
+    - -I./src/native/effects
+    - -I./src/native/analysis
+    - -I./src/native/presets
+    - -I./src/native/video
+    - -I./src/native/utils
 
     # Generated headers (React Native Codegen)
     - -I./android/app/build/generated/rncli/src/main/jni
@@ -19,8 +27,9 @@ CompileFlags:
     # Android specific
     - -I./android/app/src/main/jni
 
-    # C++ standard
-    - -std=c++17
+    # C++ standard and language
+    - -std=c++20
+    - -x c++
     - -DANDROID
     - -D__ANDROID_API__=21
 
