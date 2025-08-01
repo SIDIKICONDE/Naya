@@ -1,97 +1,177 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🚀 Naya - Module Natif React Native
 
-# Getting Started
+Un module natif React Native cross-platform avec 8 fonctionnalités avancées, utilisant les Turbo Modules et le code partagé C++.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## ✨ Fonctionnalités
 
-## Step 1: Start Metro
+### 📝 **Traitement de texte**
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- 🔄 **Inverser** - Inverse l'ordre des caractères
+- 📊 **Compter** - Compte le nombre de caractères
+- ⬆️ **MAJUSCULES** - Convertit en majuscules
+- ⬇️ **minuscules** - Convertit en minuscules
+- 🚫 **Espaces** - Supprime tous les espaces
+- 🔄 **Palindrome** - Vérifie si c'est un palindrome
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### 🔢 **Fonctions mathématiques**
 
-```sh
-# Using npm
-npm start
+- 🎲 **Aléatoire** - Génère un nombre aléatoire entre 1 et 100
+- 🧮 **Factorielle** - Calcule la factorielle d'un nombre (0-20)
 
-# OR using Yarn
-yarn start
+## 🏗️ Architecture
+
+### **Code partagé** 🔄
+
+```
+src/native/
+├── NativeModuleEQ.h     ← Header partagé
+└── NativeModuleEQ.cpp   ← Implémentation partagée
 ```
 
-## Step 2: Build and run your app
+### **Configuration cross-platform** ⚙️
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+- **iOS** : `ios/Naya.xcodeproj` → `../src/native`
+- **Android** : `android/app/src/main/jni/CMakeLists.txt` → `../../../../../src/native`
 
-### Android
+## 🚀 Installation
 
-```sh
-# Using npm
-npm run android
+### Prérequis
 
-# OR using Yarn
-yarn android
+- React Native 0.80+
+- Xcode (pour iOS)
+- Android Studio (pour Android)
+- Node.js 18+
+
+### Installation
+
+```bash
+# Cloner le projet
+git clone https://github.com/SIDIKICONDE/Naya.git
+cd Naya
+
+# Installer les dépendances
+npm install
+
+# iOS
+cd ios && pod install && cd ..
+npx react-native run-ios
+
+# Android
+npx react-native run-android
 ```
 
-### iOS
+## 📱 Utilisation
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+```typescript
+import NativeModuleEQ from './specs/NativeModuleEQ';
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+// Inverser une chaîne
+const reversed = await NativeModuleEQ.reverseString('Hello');
+console.log(reversed); // "olleH"
 
-```sh
-bundle install
+// Compter les caractères
+const count = await NativeModuleEQ.countCharacters('Bonjour');
+console.log(count); // 7
+
+// Vérifier un palindrome
+const isPal = await NativeModuleEQ.isPalindrome('radar');
+console.log(isPal); // true
+
+// Générer un nombre aléatoire
+const random = await NativeModuleEQ.getRandomNumber(1, 100);
+console.log(random); // 42
+
+// Calculer une factorielle
+const factorial = await NativeModuleEQ.calculateFactorial(5);
+console.log(factorial); // 120
 ```
 
-Then, and every time you update your native dependencies, run:
+## 🎯 Avantages
 
-```sh
-bundle exec pod install
+### **Performance native** ⚡
+
+- Code C++ optimisé
+- Turbo Modules pour les performances maximales
+- JSI (JavaScript Interface) pour la communication directe
+
+### **Cross-platform** 📱
+
+- **iOS** : Simulateur iPhone 16
+- **Android** : Émulateur Pixel 7
+- Code partagé sans duplication
+
+### **Architecture moderne** 🏛️
+
+- Turbo Modules (New Architecture)
+- Code partagé entre plateformes
+- Interface TypeScript type-safe
+
+## 🔧 Configuration
+
+### **iOS**
+
+- Xcode project configuré
+- CocoaPods pour les dépendances
+- Header search paths configurés
+
+### **Android**
+
+- CMake pour la compilation C++
+- JNI pour l'intégration native
+- Gradle configuré
+
+## 📊 Structure du projet
+
+```
+Naya/
+├── src/
+│   └── native/                    ← Code C++ partagé
+│       ├── NativeModuleEQ.h
+│       └── NativeModuleEQ.cpp
+├── ios/
+│   ├── Naya.xcodeproj/           ← Configuration iOS
+│   └── NativeModuleEQProvider.*  ← Provider iOS
+├── android/
+│   └── app/src/main/jni/         ← Configuration Android
+│       ├── CMakeLists.txt
+│       └── OnLoad.cpp
+├── specs/
+│   └── NativeModuleEQ.ts         ← Interface TypeScript
+└── App.tsx                       ← Interface de test
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## 🎨 Interface de test
 
-```sh
-# Using npm
-npm run ios
+L'application inclut une interface moderne pour tester toutes les fonctionnalités :
 
-# OR using Yarn
-yarn ios
-```
+- Zone de saisie texte
+- Zone de saisie nombre
+- Boutons pour chaque fonctionnalité
+- Affichage des résultats en temps réel
+- Design responsive et moderne
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 🤝 Contribution
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Les contributions sont les bienvenues ! Pour contribuer :
 
-## Step 3: Modify your app
+1. Fork le projet
+2. Créer une branche feature (`git checkout -b feature/AmazingFeature`)
+3. Commit les changements (`git commit -m 'Add some AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
 
-Now that you have successfully run the app, let's make changes!
+## 📄 Licence
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## 🙏 Remerciements
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+- React Native Team pour les Turbo Modules
+- La communauté React Native
+- Tous les contributeurs
 
-## Congratulations! :tada:
+---
 
-You've successfully run and modified your React Native App. :partying_face:
+**Développé avec ❤️ par SIDIKICONDE**
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+⭐ **N'oubliez pas de donner une étoile si ce projet vous a aidé !**
