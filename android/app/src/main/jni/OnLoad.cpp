@@ -29,11 +29,11 @@
 
 #include <DefaultComponentsRegistry.h>
 #include <DefaultTurboModuleManagerDelegate.h>
-#include <NativeModuleEQ.h>
 #include <autolinking.h>
 #include <fbjni/fbjni.h>
 #include <react/renderer/componentregistry/ComponentDescriptorProviderRegistry.h>
 #include <rncore.h>
+#include "NativeFFmpegModule.h"
 
 #ifdef REACT_NATIVE_APP_CODEGEN_HEADER
 #include REACT_NATIVE_APP_CODEGEN_HEADER
@@ -72,8 +72,9 @@ cxxModuleProvider(const std::string &name,
   //   return std::make_shared<NativeCxxModuleExample>(jsInvoker);
   // }
 
-  if (name == NativeModuleEQ::kModuleName) {
-    return std::make_shared<NativeModuleEQ>(jsInvoker);
+  // Enregistrer le module FFmpeg
+  if (name == NativeFFmpegModule::kModuleName) {
+    return std::make_shared<NativeFFmpegModule>(jsInvoker);
   }
 
   // And we fallback to the CXX module providers autolinked
