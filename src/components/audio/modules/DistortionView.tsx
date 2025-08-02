@@ -7,33 +7,34 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { audioInterface } from '../../../audio/AudioInterface';
+import { useTranslation } from '../../../i18n';
 
 interface DistortionViewProps {
   moduleId: string;
 }
 
-const DISTORTION_TYPES = [
+const getDistortionTypes = (t: (key: string) => string) => [
   { 
     id: 'tube', 
-    name: 'Tube', 
+    name: t('audio:modules.distortion.types.tube'), 
     color: '#ff9500',
     preset: { drive: 45, tone: 65, outputGain: -3, mix: 85, asymmetry: 15, harmonics: 35, gateThreshold: -50 }
   },
   { 
     id: 'overdrive', 
-    name: 'OD', 
+    name: t('audio:modules.distortion.types.overdrive'), 
     color: '#4a9eff',
     preset: { drive: 25, tone: 55, outputGain: 0, mix: 70, asymmetry: 5, harmonics: 20, gateThreshold: -60 }
   },
   { 
     id: 'fuzz', 
-    name: 'Fuzz', 
+    name: t('audio:modules.distortion.types.fuzz'), 
     color: '#e91e63',
     preset: { drive: 75, tone: 40, outputGain: -6, mix: 90, asymmetry: -10, harmonics: 60, gateThreshold: -40 }
   },
   { 
     id: 'bitcrush', 
-    name: 'Bit', 
+    name: t('audio:modules.distortion.types.bitcrush'), 
     color: '#9c27b0',
     preset: { drive: 85, tone: 30, outputGain: -8, mix: 65, asymmetry: 0, harmonics: 80, gateThreshold: -70 }
   },
@@ -82,6 +83,8 @@ export const DistortionView: React.FC<DistortionViewProps> = ({ moduleId }) => {
   });
 
   const module = audioInterface.getModule(moduleId);
+  const { t } = useTranslation();
+  const DISTORTION_TYPES = getDistortionTypes(t);
 
   useEffect(() => {
     if (!module) return;
@@ -138,7 +141,7 @@ export const DistortionView: React.FC<DistortionViewProps> = ({ moduleId }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Distorsion</Text>
+                  <Text style={styles.title}>{t('audio:modules.distortion.title')}</Text>
         <View style={styles.typeGrid}>
           {DISTORTION_TYPES.map((type) => (
             <TouchableOpacity
@@ -164,7 +167,7 @@ export const DistortionView: React.FC<DistortionViewProps> = ({ moduleId }) => {
 
       <View style={styles.controls}>
         <SliderControl
-          label="Drive"
+          label={t('audio:modules.distortion.controls.drive')}
           value={state.drive}
           unit="%"
           min={0}
@@ -175,7 +178,7 @@ export const DistortionView: React.FC<DistortionViewProps> = ({ moduleId }) => {
 
         <View style={styles.row}>
           <SliderControl
-            label="Tone"
+            label={t('audio:modules.distortion.controls.tone')}
             value={state.tone}
             unit="%"
             min={0}
@@ -184,7 +187,7 @@ export const DistortionView: React.FC<DistortionViewProps> = ({ moduleId }) => {
             onChange={(v) => updateParam('tone', v)}
           />
           <SliderControl
-            label="Mix"
+            label={t('audio:modules.distortion.controls.mix')}
             value={state.mix}
             unit="%"
             min={0}
@@ -195,7 +198,7 @@ export const DistortionView: React.FC<DistortionViewProps> = ({ moduleId }) => {
         </View>
 
         <SliderControl
-          label="Gain"
+          label={t('audio:modules.distortion.controls.gain')}
           value={state.outputGain}
           min={-24}
           max={24}
@@ -206,7 +209,7 @@ export const DistortionView: React.FC<DistortionViewProps> = ({ moduleId }) => {
 
         <View style={styles.row}>
           <SliderControl
-            label="Asymétrie"
+            label={t('audio:modules.distortion.controls.asymmetry')}
             value={state.asymmetry}
             unit="%"
             min={-50}
@@ -215,7 +218,7 @@ export const DistortionView: React.FC<DistortionViewProps> = ({ moduleId }) => {
             onChange={(v) => updateParam('asymmetry', v)}
           />
           <SliderControl
-            label="Harmoniques"
+            label={t('audio:modules.distortion.controls.harmonics')}
             value={state.harmonics}
             unit="%"
             min={0}
@@ -226,7 +229,7 @@ export const DistortionView: React.FC<DistortionViewProps> = ({ moduleId }) => {
         </View>
 
         <SliderControl
-          label="Gate"
+          label={t('audio:modules.distortion.controls.gate')}
           value={state.gateThreshold}
           unit=" dB"
           min={-80}

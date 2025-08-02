@@ -13,12 +13,14 @@ import {
 import { audioInterface } from '../../../audio/AudioInterface';
 import { AudioMockData } from './AudioMockData'; // TODO: À supprimer
 import { useVisualizerColors, useAudioTheme } from '../../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../../i18n';
 
 interface LevelMeterProps {
   showLabels?: boolean;
 }
 
 export const LevelMeter: React.FC<LevelMeterProps> = ({ showLabels = true }) => {
+  const { t } = useTranslation();
   const [metrics, setMetrics] = useState({
     peakLeft: -60,
     peakRight: -60,
@@ -102,14 +104,14 @@ export const LevelMeter: React.FC<LevelMeterProps> = ({ showLabels = true }) => 
     <View style={styles.container}>
       {showLabels && (
         <View style={styles.header}>
-          <Text style={styles.title}>Niveaux</Text>
+          <Text style={styles.title}>{t('audio:visualizers.levelMeter.title')}</Text>
         </View>
       )}
 
       <View style={styles.metersContainer}>
         {/* Canal gauche */}
         <View style={styles.channelContainer}>
-          <Text style={styles.channelLabel}>L</Text>
+          <Text style={styles.channelLabel}>{t('audio:visualizers.levelMeter.left')}</Text>
           <View style={styles.meterTrack}>
             {/* Échelle dB */}
             <View style={styles.dbScale}>
@@ -169,7 +171,7 @@ export const LevelMeter: React.FC<LevelMeterProps> = ({ showLabels = true }) => 
 
         {/* Canal droit */}
         <View style={styles.channelContainer}>
-          <Text style={styles.channelLabel}>R</Text>
+          <Text style={styles.channelLabel}>{t('audio:visualizers.levelMeter.right')}</Text>
           <View style={styles.meterTrack}>
             {/* Barre RMS */}
             <Animated.View
@@ -220,7 +222,7 @@ export const LevelMeter: React.FC<LevelMeterProps> = ({ showLabels = true }) => 
 
       {/* Indicateur de corrélation stéréo */}
       <View style={styles.correlationContainer}>
-        <Text style={styles.correlationLabel}>Phase</Text>
+        <Text style={styles.correlationLabel}>{t('audio:visualizers.levelMeter.phase')}</Text>
         <View style={styles.correlationBar}>
           <View style={[styles.correlationIndicator, { left: '50%' }]} />
         </View>

@@ -5,9 +5,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Alert } from 'react-native';
 import { audioInterface } from '../../../../audio/AudioInterface';
+import { useTranslation } from '../../../../i18n';
 import type { PresetItem, PresetCategory } from '../types';
 
 export const usePresets = () => {
+  const { t } = useTranslation();
   const [presets, setPresets] = useState<PresetItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<PresetCategory>('All');
   const [loading, setLoading] = useState(false);
@@ -19,42 +21,42 @@ export const usePresets = () => {
       setPresets(presetList as PresetItem[]);
     } catch (error) {
       console.error('Erreur chargement presets:', error);
-      Alert.alert('Erreur', 'Impossible de charger les presets');
+      Alert.alert('Erreur', t('audio:presetManager.errors.loadPresets'));
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [t]);
 
   const savePreset = useCallback(async (name: string, category: string) => {
     if (!name.trim()) {
-      Alert.alert('Erreur', 'Veuillez entrer un nom pour le preset');
+      Alert.alert('Erreur', t('audio:presetManager.errors.emptyName'));
       return false;
     }
 
     try {
       const presetId = audioInterface.savePreset(name, category);
-      Alert.alert('Succès', 'Preset sauvegardé avec succès');
+      Alert.alert('Succès', t('audio:presetManager.success.presetSaved'));
       await loadPresets();
       return true;
     } catch (error) {
-      Alert.alert('Erreur', 'Impossible de sauvegarder le preset');
+      Alert.alert('Erreur', t('audio:presetManager.errors.savePreset'));
       return false;
     }
-  }, [loadPresets]);
+  }, [loadPresets, t]);
 
   const deletePreset = useCallback(async (presetId: string, presetName: string) => {
     return new Promise<void>((resolve, reject) => {
       Alert.alert(
-        'Confirmer la suppression',
-        `Voulez-vous vraiment supprimer le preset "${presetName}" ?`,
+        t('audio:presetManager.confirmations.deleteTitle'),
+        t('audio:presetManager.confirmations.deleteMessage', { name: presetName }),
         [
           { 
-            text: 'Annuler', 
+            text: t('audio:presetManager.confirmations.deleteCancel'), 
             style: 'cancel',
             onPress: () => reject(new Error('Cancelled'))
           },
           {
-            text: 'Supprimer',
+            text: t('audio:presetManager.confirmations.deleteConfirm'),
             style: 'destructive',
             onPress: async () => {
               try {
@@ -62,7 +64,7 @@ export const usePresets = () => {
                 await loadPresets();
                 resolve();
               } catch (error) {
-                Alert.alert('Erreur', 'Impossible de supprimer le preset');
+                Alert.alert('Erreur', t('audio:presetManager.errors.deletePreset'));
                 reject(error);
               }
             },
@@ -70,7 +72,7 @@ export const usePresets = () => {
         ]
       );
     });
-  }, [loadPresets]);
+  }, [loadPresets, t]);
 
   const filteredPresets = selectedCategory === 'All' 
     ? presets 

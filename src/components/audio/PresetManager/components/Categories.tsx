@@ -4,13 +4,28 @@
 
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import type { CategoriesProps, PresetCategory } from '../types';
+import type { CategoriesProps } from '../types/index';
 import { useAudioTheme } from '../../../../theme/hooks/useAudioTheme';
+
+const getCategoryTranslation = (category: any, translations: any) => {
+  const translationMap: Record<string, string> = {
+    'All': translations.all,
+    'User': translations.user,
+    'Factory': translations.factory,
+    'Favorites': translations.favorites,
+    'Recent': translations.recent,
+    'Vocal': 'Vocal',
+    'Instrument': 'Instrument',
+    'Master': 'Master',
+  };
+  return translationMap[category] || category;
+};
 
 export const Categories: React.FC<CategoriesProps> = ({
   categories, 
   selectedCategory, 
-  onCategorySelect 
+  onCategorySelect,
+  translations
 }) => {
   const audioTheme = useAudioTheme();
   const styles = createStyles(audioTheme);
@@ -24,7 +39,7 @@ export const Categories: React.FC<CategoriesProps> = ({
             styles.categoryButton,
             selectedCategory === category && styles.selectedCategoryButton,
           ]}
-          onPress={() => onCategorySelect(category as PresetCategory)}
+          onPress={() => onCategorySelect(category)}
         >
           <Text
             style={[
@@ -32,7 +47,7 @@ export const Categories: React.FC<CategoriesProps> = ({
               selectedCategory === category && styles.selectedCategoryButtonText,
             ]}
           >
-            {category}
+            {getCategoryTranslation(category, translations)}
           </Text>
         </TouchableOpacity>
       ))}

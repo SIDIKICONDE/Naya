@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import { useAudioTheme } from '../../theme/hooks/useAudioTheme';
 import { createModuleStyles } from '../../theme/utils/audioStyles';
+import { useTranslation } from '../../i18n';
 import { audioInterface, ModuleType } from '../../audio/AudioInterface';
 import { 
   EqualizerView,
@@ -40,7 +41,7 @@ interface AudioInterfaceViewProps {
 }
 
 // Rendu des contrôles spécifiques à chaque module
-const renderModuleControls = (moduleId: string, isInitialized: boolean) => {
+const renderModuleControls = (moduleId: string, isInitialized: boolean, t: (key: string) => string) => {
   const defaultControlsStyle = {
     padding: 24,
     alignItems: 'center' as const,
@@ -57,79 +58,79 @@ const renderModuleControls = (moduleId: string, isInitialized: boolean) => {
   if (!isInitialized) {
     return (
       <View style={defaultControlsStyle}>
-        <Text style={moduleTypeTextStyle}>
-          Initialisation en cours...
-        </Text>
-      </View>
-    );
-  }
-
-  try {
-    // Vérification de sécurité pour éviter l'erreur
-    if (!audioInterface || typeof audioInterface.getModule !== 'function') {
-      return (
-        <View style={defaultControlsStyle}>
-          <Text style={moduleTypeTextStyle}>
-            Interface audio non disponible
+                  <Text style={moduleTypeTextStyle}>
+            {t('audio:interface.status.initializing')}
           </Text>
         </View>
       );
     }
-    
-    const module = audioInterface.getModule(moduleId);
-    if (!module) return null;
 
-    switch (module.metadata.type) {
-      case ModuleType.PARAMETRIC_EQ:
-      case ModuleType.GRAPHIC_EQ:
-      case ModuleType.MULTIBAND_EQ:
-        return <EqualizerView key={moduleId} moduleId={moduleId} />;
-      
-      case ModuleType.COMPRESSOR:
-      case ModuleType.MULTIBAND_COMPRESSOR:
-      case ModuleType.DE_ESSER:
-        return <CompressorView key={moduleId} moduleId={moduleId} />;
-      
-      case ModuleType.LIMITER:
-        return <LimiterView key={moduleId} moduleId={moduleId} />;
-      
-      case ModuleType.GATE:
-        return <GateView key={moduleId} moduleId={moduleId} />;
-      
-      case ModuleType.REVERB:
-        return <ReverbView key={moduleId} moduleId={moduleId} />;
-      
-      case ModuleType.DELAY:
-        return <DelayView key={moduleId} moduleId={moduleId} />;
-      
-      case ModuleType.CHORUS:
-      case ModuleType.FLANGER:
-      case ModuleType.PHASER:
-        return <ChorusView key={moduleId} moduleId={moduleId} />;
-      
-      case ModuleType.DISTORTION:
-      case ModuleType.PITCH_SHIFTER:
-      case ModuleType.HARMONIZER:
-        return <DistortionView key={moduleId} moduleId={moduleId} />;
-      
-      default:
+    try {
+      // Vérification de sécurité pour éviter l'erreur
+      if (!audioInterface || typeof audioInterface.getModule !== 'function') {
         return (
           <View style={defaultControlsStyle}>
             <Text style={moduleTypeTextStyle}>
-              {module.metadata.name}
+              {t('audio:interface.status.unavailable')}
             </Text>
           </View>
         );
-    }
-  } catch (error) {
-    console.error('Erreur lors du rendu des contrôles du module:', error);
-    return (
-      <View style={defaultControlsStyle}>
-        <Text style={moduleTypeTextStyle}>
-          Erreur de chargement du module
-        </Text>
-      </View>
-    );
+      }
+      
+      const module = audioInterface.getModule(moduleId);
+      if (!module) return null;
+
+      switch (module.metadata.type) {
+        case ModuleType.PARAMETRIC_EQ:
+        case ModuleType.GRAPHIC_EQ:
+        case ModuleType.MULTIBAND_EQ:
+          return <EqualizerView key={moduleId} moduleId={moduleId} />;
+        
+        case ModuleType.COMPRESSOR:
+        case ModuleType.MULTIBAND_COMPRESSOR:
+        case ModuleType.DE_ESSER:
+          return <CompressorView key={moduleId} moduleId={moduleId} />;
+        
+        case ModuleType.LIMITER:
+          return <LimiterView key={moduleId} moduleId={moduleId} />;
+        
+        case ModuleType.GATE:
+          return <GateView key={moduleId} moduleId={moduleId} />;
+        
+        case ModuleType.REVERB:
+          return <ReverbView key={moduleId} moduleId={moduleId} />;
+        
+        case ModuleType.DELAY:
+          return <DelayView key={moduleId} moduleId={moduleId} />;
+        
+        case ModuleType.CHORUS:
+        case ModuleType.FLANGER:
+        case ModuleType.PHASER:
+          return <ChorusView key={moduleId} moduleId={moduleId} />;
+        
+        case ModuleType.DISTORTION:
+        case ModuleType.PITCH_SHIFTER:
+        case ModuleType.HARMONIZER:
+          return <DistortionView key={moduleId} moduleId={moduleId} />;
+        
+        default:
+          return (
+            <View style={defaultControlsStyle}>
+              <Text style={moduleTypeTextStyle}>
+                {module.metadata.name}
+              </Text>
+            </View>
+          );
+      }
+    } catch (error) {
+      console.error('Erreur lors du rendu des contrôles du module:', error);
+      return (
+        <View style={defaultControlsStyle}>
+          <Text style={moduleTypeTextStyle}>
+            {t('audio:interface.status.moduleError')}
+          </Text>
+        </View>
+      );
   }
 };
 
@@ -140,8 +141,9 @@ const AudioInterfaceViewContent: React.FC<AudioInterfaceViewProps> = ({ onClose 
   const [selectedModule, setSelectedModule] = useState<string | null>(null);
   const [showPresets, setShowPresets] = useState(false);
   
-  // Hook de thème audio
+  // Hooks
   const audioTheme = useAudioTheme();
+  const { t } = useTranslation();
 
   // Initialisation
   useEffect(() => {
@@ -302,7 +304,7 @@ const AudioInterfaceViewContent: React.FC<AudioInterfaceViewProps> = ({ onClose 
       {/* Header */}
       <View style={themedStyles.header}>
         <View style={styles.headerLeft}>
-          <Text style={themedStyles.title}>Interface Pro</Text>
+          <Text style={themedStyles.title}>{t('audio:interface.title')}</Text>
           <SystemMetrics isProcessing={isProcessing} compact={true} />
         </View>
         <View style={styles.headerButtons}>
@@ -310,11 +312,11 @@ const AudioInterfaceViewContent: React.FC<AudioInterfaceViewProps> = ({ onClose 
             style={themedStyles.presetButton}
             onPress={() => setShowPresets(!showPresets)}
           >
-            <Text style={themedStyles.buttonText}>Presets</Text>
+            <Text style={themedStyles.buttonText}>{t('audio:interface.actions.presets')}</Text>
           </TouchableOpacity>
           {onClose && (
             <TouchableOpacity style={themedStyles.closeButton} onPress={onClose}>
-              <Text style={styles.closeButtonText}>✕</Text>
+              <Text style={styles.closeButtonText}>{t('audio:interface.actions.close')}</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -330,7 +332,7 @@ const AudioInterfaceViewContent: React.FC<AudioInterfaceViewProps> = ({ onClose 
       {/* Zone de contrôle du module sélectionné */}
       <View style={themedStyles.moduleControlSection}>
         <ScrollView style={styles.moduleControlArea} contentContainerStyle={styles.moduleControlContent}>
-          {selectedModule && renderModuleControls(selectedModule, isInitialized)}
+          {selectedModule && renderModuleControls(selectedModule, isInitialized, t)}
         </ScrollView>
       </View>
 

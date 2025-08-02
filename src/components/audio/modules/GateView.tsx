@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { audioInterface } from '../../../audio/AudioInterface';
+import { useTranslation } from '../../../i18n';
 
 interface GateViewProps {
   moduleId: string;
@@ -28,6 +29,7 @@ export const GateView: React.FC<GateViewProps> = ({ moduleId }) => {
   const [mode, setMode] = useState<'gate' | 'expander'>('gate');
 
   const module = audioInterface.getModule(moduleId);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!module) return;
@@ -64,20 +66,20 @@ export const GateView: React.FC<GateViewProps> = ({ moduleId }) => {
     <ScrollView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.title}>Noise Gate</Text>
-        <Text style={styles.subtitle}>Suppression automatique du bruit</Text>
+        <Text style={styles.title}>{t('audio:modules.gate.title')}</Text>
+        <Text style={styles.subtitle}>{t('audio:modules.gate.subtitle')}</Text>
       </View>
 
       {/* Sélecteur de mode */}
       <View style={styles.modeSection}>
-        <Text style={styles.sectionTitle}>Mode de fonctionnement</Text>
+        <Text style={styles.sectionTitle}>{t('audio:modules.gate.modes.title')}</Text>
         <View style={styles.modeSelector}>
           <TouchableOpacity
             style={[styles.modeButton, mode === 'gate' && styles.modeButtonActive]}
             onPress={() => handleModeChange('gate')}
           >
             <Text style={[styles.modeButtonText, mode === 'gate' && styles.modeButtonTextActive]}>
-              Gate
+              {t('audio:modules.gate.modes.gate')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -85,7 +87,7 @@ export const GateView: React.FC<GateViewProps> = ({ moduleId }) => {
             onPress={() => handleModeChange('expander')}
           >
             <Text style={[styles.modeButtonText, mode === 'expander' && styles.modeButtonTextActive]}>
-              Expander
+              {t('audio:modules.gate.modes.expander')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -96,7 +98,7 @@ export const GateView: React.FC<GateViewProps> = ({ moduleId }) => {
         {/* Threshold */}
         <View style={styles.controlGroup}>
           <View style={styles.controlHeader}>
-            <Text style={styles.controlLabel}>Seuil</Text>
+            <Text style={styles.controlLabel}>{t('audio:modules.gate.controls.threshold.label')}</Text>
             <Text style={styles.controlValue}>{threshold.toFixed(1)} dB</Text>
           </View>
           <Slider
@@ -113,14 +115,14 @@ export const GateView: React.FC<GateViewProps> = ({ moduleId }) => {
             thumbTintColor="#ff6b35"
           />
           <Text style={styles.controlDescription}>
-            Niveau en dessous duquel le gate s'active
+            {t('audio:modules.gate.controls.threshold.description')}
           </Text>
         </View>
 
         {/* Ratio */}
         <View style={styles.controlGroup}>
           <View style={styles.controlHeader}>
-            <Text style={styles.controlLabel}>Ratio</Text>
+            <Text style={styles.controlLabel}>{t('audio:modules.gate.controls.ratio.label')}</Text>
             <Text style={styles.controlValue}>
               {ratio >= 20 ? '∞:1' : `${ratio.toFixed(1)}:1`}
             </Text>
@@ -139,14 +141,14 @@ export const GateView: React.FC<GateViewProps> = ({ moduleId }) => {
             thumbTintColor="#4a9eff"
           />
           <Text style={styles.controlDescription}>
-            Intensité de la réduction
+            {t('audio:modules.gate.controls.ratio.description')}
           </Text>
         </View>
 
         {/* Attack */}
         <View style={styles.controlGroup}>
           <View style={styles.controlHeader}>
-            <Text style={styles.controlLabel}>Attaque</Text>
+            <Text style={styles.controlLabel}>{t('audio:modules.gate.controls.attack.label')}</Text>
             <Text style={styles.controlValue}>{attack.toFixed(1)} ms</Text>
           </View>
           <Slider
@@ -163,14 +165,14 @@ export const GateView: React.FC<GateViewProps> = ({ moduleId }) => {
             thumbTintColor="#00ff88"
           />
           <Text style={styles.controlDescription}>
-            Temps d'ouverture du gate
+            {t('audio:modules.gate.controls.attack.description')}
           </Text>
         </View>
 
         {/* Hold */}
         <View style={styles.controlGroup}>
           <View style={styles.controlHeader}>
-            <Text style={styles.controlLabel}>Maintien</Text>
+            <Text style={styles.controlLabel}>{t('audio:modules.gate.controls.hold.label')}</Text>
             <Text style={styles.controlValue}>{hold.toFixed(0)} ms</Text>
           </View>
           <Slider
@@ -187,14 +189,14 @@ export const GateView: React.FC<GateViewProps> = ({ moduleId }) => {
             thumbTintColor="#ff9500"
           />
           <Text style={styles.controlDescription}>
-            Durée minimum d'ouverture
+            {t('audio:modules.gate.controls.hold.description')}
           </Text>
         </View>
 
         {/* Release */}
         <View style={styles.controlGroup}>
           <View style={styles.controlHeader}>
-            <Text style={styles.controlLabel}>Relâchement</Text>
+            <Text style={styles.controlLabel}>{t('audio:modules.gate.controls.release.label')}</Text>
             <Text style={styles.controlValue}>{release.toFixed(0)} ms</Text>
           </View>
           <Slider
@@ -211,14 +213,14 @@ export const GateView: React.FC<GateViewProps> = ({ moduleId }) => {
             thumbTintColor="#e91e63"
           />
           <Text style={styles.controlDescription}>
-            Temps de fermeture du gate
+            {t('audio:modules.gate.controls.release.description')}
           </Text>
         </View>
 
         {/* Look-ahead */}
         <View style={styles.controlGroup}>
           <View style={styles.controlHeader}>
-            <Text style={styles.controlLabel}>Anticipation</Text>
+            <Text style={styles.controlLabel}>{t('audio:modules.gate.controls.lookAhead.label')}</Text>
             <Text style={styles.controlValue}>{lookAhead.toFixed(1)} ms</Text>
           </View>
           <Slider
@@ -235,17 +237,17 @@ export const GateView: React.FC<GateViewProps> = ({ moduleId }) => {
             thumbTintColor="#9c27b0"
           />
           <Text style={styles.controlDescription}>
-            Délai de prédiction pour transitions fluides
+            {t('audio:modules.gate.controls.lookAhead.description')}
           </Text>
         </View>
       </View>
 
       {/* Visualisation */}
       <View style={styles.visualSection}>
-        <Text style={styles.sectionTitle}>État du gate</Text>
+        <Text style={styles.sectionTitle}>{t('audio:modules.gate.status.title')}</Text>
         <View style={styles.statusContainer}>
           <View style={[styles.statusLight, { backgroundColor: '#00ff88' }]} />
-          <Text style={styles.statusText}>Ouvert</Text>
+          <Text style={styles.statusText}>{t('audio:modules.gate.status.open')}</Text>
         </View>
       </View>
     </ScrollView>

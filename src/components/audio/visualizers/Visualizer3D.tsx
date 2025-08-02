@@ -16,6 +16,7 @@ import {
 import { audioInterface } from '../../../audio/AudioInterface';
 import { AudioMockData } from './AudioMockData'; // TODO: À supprimer
 import { useAudioTheme, useVisualizerColors } from '../../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../../i18n';
 
 interface Visualizer3DProps {
   fftSize?: number;
@@ -34,6 +35,7 @@ export const Visualizer3D: React.FC<Visualizer3DProps> = ({
 }) => {
   const audioTheme = useAudioTheme();
   const visualizerColors = useVisualizerColors();
+  const { t } = useTranslation();
   const [dimensions, setDimensions] = useState(() => {
     const { width } = Dimensions.get('window');
     return {
@@ -222,7 +224,7 @@ export const Visualizer3D: React.FC<Visualizer3DProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Visualiseur 3D</Text>
+        <Text style={styles.title}>{t('audio:visualizers.visualizer3d.title')}</Text>
         <View style={styles.controls}>
           <TouchableOpacity
             style={[styles.controlButton, autoRotate && styles.activeButton]}
@@ -281,7 +283,7 @@ export const Visualizer3D: React.FC<Visualizer3DProps> = ({
           ]}
           onPress={() => setColorMode('spectrum')}
         >
-          <Text style={styles.optionText}>Spectre</Text>
+          <Text style={styles.optionText}>{t('audio:visualizers.visualizer3d.modes.spectrum')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -290,7 +292,7 @@ export const Visualizer3D: React.FC<Visualizer3DProps> = ({
           ]}
           onPress={() => setColorMode('intensity')}
         >
-          <Text style={styles.optionText}>Intensité</Text>
+          <Text style={styles.optionText}>{t('audio:visualizers.visualizer3d.modes.intensity')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -299,7 +301,7 @@ export const Visualizer3D: React.FC<Visualizer3DProps> = ({
           ]}
           onPress={() => setColorMode('phase')}
         >
-          <Text style={styles.optionText}>Phase</Text>
+          <Text style={styles.optionText}>{t('audio:visualizers.visualizer3d.modes.phase')}</Text>
         </TouchableOpacity>
       </View>
     </View>

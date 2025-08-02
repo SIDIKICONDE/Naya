@@ -10,6 +10,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useAudioTheme } from '../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../i18n';
 
 interface SystemMetricsProps {
   isProcessing: boolean;
@@ -21,6 +22,7 @@ export const SystemMetrics: React.FC<SystemMetricsProps> = ({
   compact = true,
 }) => {
   const audioTheme = useAudioTheme();
+  const { t } = useTranslation();
   
   const themedStyles = StyleSheet.create({
     container: {
@@ -49,29 +51,29 @@ export const SystemMetrics: React.FC<SystemMetricsProps> = ({
     <View style={themedStyles.container}>
       {/* CPU */}
       <View style={themedStyles.metric}>
-        <Text style={themedStyles.metricLabel}>CPU</Text>
+        <Text style={themedStyles.metricLabel}>{t('audio:interface.metrics.cpu')}</Text>
         <Text style={[
           themedStyles.metricValue,
           { color: isProcessing ? audioTheme.colors.levelMid : audioTheme.colors.buttonInactive }
         ]}>
-          {isProcessing ? '12%' : '0%'}
+          {isProcessing ? `12${t('audio:interface.metrics.units.percent')}` : `0${t('audio:interface.metrics.units.percent')}`}
         </Text>
       </View>
 
       {/* Buffer */}
       <View style={themedStyles.metric}>
-        <Text style={themedStyles.metricLabel}>BUF</Text>
+        <Text style={themedStyles.metricLabel}>{t('audio:interface.metrics.buffer')}</Text>
         <Text style={themedStyles.metricValue}>512</Text>
       </View>
 
       {/* Latency */}
       <View style={themedStyles.metric}>
-        <Text style={themedStyles.metricLabel}>LAT</Text>
+        <Text style={themedStyles.metricLabel}>{t('audio:interface.metrics.latency')}</Text>
         <Text style={[
           themedStyles.metricValue,
           { color: isProcessing ? audioTheme.colors.levelHigh : audioTheme.colors.buttonInactive }
         ]}>
-          {isProcessing ? '8ms' : '--'}
+          {isProcessing ? `8${t('audio:interface.metrics.units.ms')}` : '--'}
         </Text>
       </View>
     </View>

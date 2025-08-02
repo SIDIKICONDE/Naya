@@ -6,15 +6,17 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { EMPTY_STATE } from '../constants';
 import { useAudioTheme } from '../../../../theme/hooks/useAudioTheme';
+import type { EmptyStateProps } from '../types/index';
 
-export const EmptyState: React.FC = () => {
+export const EmptyState: React.FC<EmptyStateProps> = ({ translations }) => {
   const audioTheme = useAudioTheme();
   const styles = createStyles(audioTheme);
 
   return (
     <View style={styles.emptyState}>
       <Text style={styles.emptyIcon}>{EMPTY_STATE.icon}</Text>
-      <Text style={styles.emptyText}>{EMPTY_STATE.message}</Text>
+      <Text style={styles.emptyText}>{translations.title}</Text>
+      <Text style={styles.emptyText}>{translations.description}</Text>
     </View>
   );
 };

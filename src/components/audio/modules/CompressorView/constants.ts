@@ -77,7 +77,92 @@ export const CONTROL_COLORS = {
   inactive: '#333',
 } as const;
 
-// Presets professionnels
+// Presets de base (paramètres techniques seulement)
+export const COMPRESSOR_PRESET_PARAMS = [
+  {
+    id: 'vocal',
+    threshold: -18,
+    ratio: 3.5,
+    attack: 3,
+    release: 60,
+    knee: 2,
+  },
+  {
+    id: 'drums',
+    threshold: -12,
+    ratio: 6,
+    attack: 0.5,
+    release: 40,
+    knee: 1,
+  },
+  {
+    id: 'master',
+    threshold: -8,
+    ratio: 2.5,
+    attack: 15,
+    release: 250,
+    knee: 3,
+  },
+  {
+    id: 'bass',
+    threshold: -16,
+    ratio: 4,
+    attack: 8,
+    release: 120,
+    knee: 2.5,
+  },
+  {
+    id: 'piano',
+    threshold: -20,
+    ratio: 2,
+    attack: 12,
+    release: 150,
+    knee: 4,
+  },
+  {
+    id: 'aggressive',
+    threshold: -10,
+    ratio: 8,
+    attack: 0.3,
+    release: 25,
+    knee: 0.5,
+  },
+  {
+    id: 'brass',
+    threshold: -14,
+    ratio: 3,
+    attack: 5,
+    release: 80,
+    knee: 2,
+  },
+  {
+    id: 'snare',
+    threshold: -8,
+    ratio: 5,
+    attack: 0.2,
+    release: 15,
+    knee: 0.8,
+  },
+  {
+    id: 'broadcast',
+    threshold: -20,
+    ratio: 2.8,
+    attack: 2,
+    release: 80,
+    knee: 3,
+  },
+] as const;
+
+// Fonction pour créer les presets avec traductions
+export const createLocalizedPresets = (t: (key: string) => string): CompressorPreset[] => {
+  return COMPRESSOR_PRESET_PARAMS.map((params) => ({
+    ...params,
+    name: t(`audio:modules.compressor.presets.categories.${params.id}.name`),
+    description: t(`audio:modules.compressor.presets.categories.${params.id}.description`),
+  }));
+};
+
+// Presets professionnels (fallback pour compatibilité)
 export const COMPRESSOR_PRESETS: CompressorPreset[] = [
   {
     name: '🎤 Vocal Lead',

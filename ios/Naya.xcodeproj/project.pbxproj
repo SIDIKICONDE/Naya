@@ -7,33 +7,53 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C80B921A6F3F58F76C31292 /* libPods-Naya.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-Naya.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		9DEB74A52274D4C57E00AD1E /* libPods-Naya.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D9B8E099804B774B1A6BC20 /* libPods-Naya.a */; };
+		AAAA1111AAAA1111AAAA1111 /* ../src/native/AudioRecord/AudioRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB2222BB2222BB2222BB2222 /* ../src/native/AudioRecord/AudioRecorder.cpp */; };
+		BBBB2222BBBB2222BBBB2222 /* ../src/native/AudioRecord/NativeAudioRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4444DD4444DD4444DD4444 /* ../src/native/AudioRecord/NativeAudioRecorder.cpp */; };
 		C517854342D3A36970F25C13 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
-		D8D82BC8720F4FF583B06C8F /* NativeFFmpegModuleProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28E736A4F239402D84DB19E6 /* NativeFFmpegModuleProvider.mm */; };
-		F826F5C77C324376BE6304A1 /* NativeFFmpegModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FBB274C6CAC4E568876B235 /* NativeFFmpegModule.cpp */; };
+		CCCC3333CCCC3333CCCC3333 /* NativeAudioRecorderProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = FF6666FF6666FF6666FF6666 /* NativeAudioRecorderProvider.mm */; };
+		IIII1111IIII1111IIII1111 /* ../src/native/AudioRecord/AudioBufferPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = HHHH1010HHHH1010HHHH1010 /* ../src/native/AudioRecord/AudioBufferPool.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6FAA36B32E3E292D00C3CBFC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6FAA36B22E3E292D00C3CBFC /* libpathops.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* Naya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Naya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Naya/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Naya/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Naya/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		186B928A0232457F8328E52C /* NativeFFmpegModuleProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeFFmpegModuleProvider.h; sourceTree = "<group>"; };
-		28E736A4F239402D84DB19E6 /* NativeFFmpegModuleProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NativeFFmpegModuleProvider.mm; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-Naya.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naya.debug.xcconfig"; path = "Target Support Files/Pods-Naya/Pods-Naya.debug.xcconfig"; sourceTree = "<group>"; };
-		4FBB274C6CAC4E568876B235 /* NativeFFmpegModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/NativeFFmpegModule.cpp; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-Naya.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naya.release.xcconfig"; path = "Target Support Files/Pods-Naya/Pods-Naya.release.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-Naya.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Naya.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-
+		31F676732C3B9D3B274266AF /* Pods-Naya.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naya.debug.xcconfig"; path = "Target Support Files/Pods-Naya/Pods-Naya.debug.xcconfig"; sourceTree = "<group>"; };
+		6D9B8E099804B774B1A6BC20 /* libPods-Naya.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Naya.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FFAFD9E2E3C5B5600A342CD /* Naya-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Naya-Bridging-Header.h"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Naya/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Naya/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8225ED5F6A6E4448B48B47BF /* NativeFFmpegModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/NativeFFmpegModule.h; sourceTree = "<group>"; };
+		A226B278586B013F3279D522 /* Pods-Naya.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naya.release.xcconfig"; path = "Target Support Files/Pods-Naya/Pods-Naya.release.xcconfig"; sourceTree = "<group>"; };
+		AA1111AA1111AA1111AA1111 /* ../src/native/AudioRecord/AudioRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/AudioRecord/AudioRecorder.h; sourceTree = "<group>"; };
+		BB2222BB2222BB2222BB2222 /* ../src/native/AudioRecord/AudioRecorder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/AudioRecord/AudioRecorder.cpp; sourceTree = "<group>"; };
+		CC3333CC3333CC3333CC3333 /* ../src/native/AudioRecord/NativeAudioRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/AudioRecord/NativeAudioRecorder.h; sourceTree = "<group>"; };
+		DD4444DD4444DD4444DD4444 /* ../src/native/AudioRecord/NativeAudioRecorder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/AudioRecord/NativeAudioRecorder.cpp; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EE5555EE5555EE5555EE5555 /* NativeAudioRecorderProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeAudioRecorderProvider.h; sourceTree = "<group>"; };
+		EEEE7777EEEE7777EEEE7777 /* ../src/native/AudioRecord/AudioBufferPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/AudioRecord/AudioBufferPool.h; sourceTree = "<group>"; };
+		FF6666FF6666FF6666FF6666 /* NativeAudioRecorderProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NativeAudioRecorderProvider.mm; sourceTree = "<group>"; };
+		FFFF8888FFFF8888FFFF8888 /* ../src/native/NativeAudioRecorder.H */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/NativeAudioRecorder.H; sourceTree = "<group>"; };
+		GGGG9999GGGG9999GGGG9999 /* ../src/native/AudioRecord/README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ../src/native/AudioRecord/README.md; sourceTree = "<group>"; };
+		HHHH1010HHHH1010HHHH1010 /* ../src/native/AudioRecord/AudioBufferPool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/AudioRecord/AudioBufferPool.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +61,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-Naya.a in Frameworks */,
+				9DEB74A52274D4C57E00AD1E /* libPods-Naya.a in Frameworks */,
+				6FAA36B12E3E292D00C3CBFC /* libpathops.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,12 +85,11 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-Naya.a */,
+				6D9B8E099804B774B1A6BC20 /* libPods-Naya.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,7 +101,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-
 				13B07FAE1A68108700A75B9A /* Naya */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -105,8 +124,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-Naya.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-Naya.release.xcconfig */,
+				31F676732C3B9D3B274266AF /* Pods-Naya.debug.xcconfig */,
+				A226B278586B013F3279D522 /* Pods-Naya.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -114,10 +133,16 @@
 		FFFF0001FFFF0001FFFF0001 /* TurboModules */ = {
 			isa = PBXGroup;
 			children = (
-				8225ED5F6A6E4448B48B47BF /* NativeFFmpegModule.h */,
-				4FBB274C6CAC4E568876B235 /* NativeFFmpegModule.cpp */,
-				186B928A0232457F8328E52C /* NativeFFmpegModuleProvider.h */,
-				28E736A4F239402D84DB19E6 /* NativeFFmpegModuleProvider.mm */,
+				FFFF8888FFFF8888FFFF8888 /* ../src/native/NativeAudioRecorder.H */,
+				GGGG9999GGGG9999GGGG9999 /* ../src/native/AudioRecord/README.md */,
+				AA1111AA1111AA1111AA1111 /* ../src/native/AudioRecord/AudioRecorder.h */,
+				BB2222BB2222BB2222BB2222 /* ../src/native/AudioRecord/AudioRecorder.cpp */,
+				EEEE7777EEEE7777EEEE7777 /* ../src/native/AudioRecord/AudioBufferPool.h */,
+				HHHH1010HHHH1010HHHH1010 /* ../src/native/AudioRecord/AudioBufferPool.cpp */,
+				CC3333CC3333CC3333CC3333 /* ../src/native/AudioRecord/NativeAudioRecorder.h */,
+				DD4444DD4444DD4444DD4444 /* ../src/native/AudioRecord/NativeAudioRecorder.cpp */,
+				EE5555EE5555EE5555EE5555 /* NativeAudioRecorderProvider.h */,
+				FF6666FF6666FF6666FF6666 /* NativeAudioRecorderProvider.mm */,
 			);
 			name = TurboModules;
 			sourceTree = "<group>";
@@ -129,13 +154,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Naya" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				A7DEC6735C51A3C4C0B154CF /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				BB6C86DE580C7107DCA72E4D /* [CP] Embed Pods Frameworks */,
+				C45CAFD6FA2F11256D4CD219 /* [CP] Copy Pods Resources */,
+				6FAA36B32E3E292D00C3CBFC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -207,24 +233,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Naya/Pods-Naya-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Naya/Pods-Naya-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Naya/Pods-Naya-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		A7DEC6735C51A3C4C0B154CF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -246,7 +255,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
+		BB6C86DE580C7107DCA72E4D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Naya/Pods-Naya-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Naya/Pods-Naya-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Naya/Pods-Naya-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C45CAFD6FA2F11256D4CD219 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -270,10 +296,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
-				F826F5C77C324376BE6304A1 /* NativeFFmpegModule.cpp in Sources */,
-				D8D82BC8720F4FF583B06C8F /* NativeFFmpegModuleProvider.mm in Sources */,
+				AAAA1111AAAA1111AAAA1111 /* ../src/native/AudioRecord/AudioRecorder.cpp in Sources */,
+				IIII1111IIII1111IIII1111 /* ../src/native/AudioRecord/AudioBufferPool.cpp in Sources */,
+				BBBB2222BBBB2222BBBB2222 /* ../src/native/AudioRecord/NativeAudioRecorder.cpp in Sources */,
+				CCCC3333CCCC3333CCCC3333 /* NativeAudioRecorderProvider.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +309,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-Naya.debug.xcconfig */;
+			baseConfigurationReference = 31F676732C3B9D3B274266AF /* Pods-Naya.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -291,7 +318,7 @@
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../FFmpeg-iOS/include\"",
+					"\"$(SRCROOT)/FFmpeg/include\"",
 				);
 				INFOPLIST_FILE = Naya/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
@@ -302,25 +329,18 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/lib/swift",
 					"$(inherited)",
-					"\"$(SRCROOT)/../FFmpeg-iOS/lib\"",
+					"\"$(SRCROOT)/FFmpeg/lib\"",
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
-					"-lavformat",
-					"-lavcodec",
-					"-lavutil",
-					"-lswscale",
-					"-lswresample",
-					"-lavfilter",
-					"-lavdevice",
 					"-lz",
 					"-lbz2",
 					"-liconv",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = Naya.app;
 				PRODUCT_NAME = Naya;
 				SWIFT_OBJC_BRIDGING_HEADER = "Naya-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -331,7 +351,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-Naya.release.xcconfig */;
+			baseConfigurationReference = A226B278586B013F3279D522 /* Pods-Naya.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -339,7 +359,7 @@
 				DEVELOPMENT_TEAM = 8GNN55S9HG;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../FFmpeg-iOS/include\"",
+					"\"$(SRCROOT)/FFmpeg/include\"",
 				);
 				INFOPLIST_FILE = Naya/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
@@ -350,25 +370,18 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/lib/swift",
 					"$(inherited)",
-					"\"$(SRCROOT)/../FFmpeg-iOS/lib\"",
+					"\"$(SRCROOT)/FFmpeg/lib\"",
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
-					"-lavformat",
-					"-lavcodec",
-					"-lavutil",
-					"-lswscale",
-					"-lswresample",
-					"-lavfilter",
-					"-lavdevice",
 					"-lz",
 					"-lbz2",
 					"-liconv",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = Naya.app;
 				PRODUCT_NAME = Naya;
 				SWIFT_OBJC_BRIDGING_HEADER = "Naya-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -445,10 +458,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -517,10 +527,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

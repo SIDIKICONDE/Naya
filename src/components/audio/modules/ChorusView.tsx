@@ -13,33 +13,34 @@ import {
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { audioInterface } from '../../../audio/AudioInterface';
+import { useTranslation } from '../../../i18n';
 
 interface ChorusViewProps {
   moduleId: string;
 }
 
-const CHORUS_TYPES = [
+const getChorusTypes = (t: (key: string) => string) => [
   { 
     id: 'classic', 
-    name: 'Classic', 
+    name: t('audio:modules.chorus.types.classic'), 
     color: '#4a9eff',
     params: { rate: 1.2, depth: 40, wetLevel: 35, dryLevel: 80, delay: 5, feedback: 10, voices: 2, spread: 50 }
   },
   { 
     id: 'ensemble', 
-    name: 'Ensemble', 
+    name: t('audio:modules.chorus.types.ensemble'), 
     color: '#00ff88',
     params: { rate: 0.8, depth: 60, wetLevel: 50, dryLevel: 70, delay: 8, feedback: 15, voices: 4, spread: 80 }
   },
   { 
     id: 'vintage', 
-    name: 'Vintage', 
+    name: t('audio:modules.chorus.types.vintage'), 
     color: '#ff9500',
     params: { rate: 2.0, depth: 70, wetLevel: 40, dryLevel: 75, delay: 12, feedback: 25, voices: 2, spread: 60 }
   },
   { 
     id: 'modern', 
-    name: 'Modern', 
+    name: t('audio:modules.chorus.types.modern'), 
     color: '#e91e63',
     params: { rate: 3.5, depth: 55, wetLevel: 45, dryLevel: 65, delay: 4, feedback: 8, voices: 6, spread: 90 }
   },
@@ -59,6 +60,8 @@ export const ChorusView: React.FC<ChorusViewProps> = ({ moduleId }) => {
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const module = audioInterface.getModule(moduleId);
+  const { t } = useTranslation();
+  const CHORUS_TYPES = getChorusTypes(t);
 
   useEffect(() => {
     if (!module) return;
@@ -129,14 +132,14 @@ export const ChorusView: React.FC<ChorusViewProps> = ({ moduleId }) => {
       {/* Header compact */}
       <View style={styles.header}>
         <View style={styles.titleSection}>
-          <Text style={styles.title}>Chorus</Text>
+          <Text style={styles.title}>{t('audio:modules.chorus.title')}</Text>
           <View style={styles.headerButtons}>
             <TouchableOpacity
               style={[styles.modeButton, compactMode && styles.modeButtonActive]}
               onPress={() => setCompactMode(!compactMode)}
             >
               <Text style={[styles.modeButtonText, compactMode && styles.modeButtonTextActive]}>
-                {compactMode ? '✓' : 'C'}
+                {compactMode ? t('audio:modules.chorus.modes.compactActive') : t('audio:modules.chorus.modes.compact')}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -144,7 +147,7 @@ export const ChorusView: React.FC<ChorusViewProps> = ({ moduleId }) => {
               onPress={() => setShowAdvanced(!showAdvanced)}
             >
               <Text style={[styles.modeButtonText, showAdvanced && styles.modeButtonTextActive]}>
-                {showAdvanced ? '▼' : '▶'}
+                {showAdvanced ? t('audio:modules.chorus.modes.advancedActive') : t('audio:modules.chorus.modes.advanced')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -181,7 +184,7 @@ export const ChorusView: React.FC<ChorusViewProps> = ({ moduleId }) => {
               {/* Rate & Depth */}
               <View style={styles.compactRow}>
                 <View style={styles.compactControl}>
-                  <Text style={styles.compactLabel}>Rate</Text>
+                  <Text style={styles.compactLabel}>{t('audio:modules.chorus.controls.rate')}</Text>
                   <Slider
                     style={styles.compactSlider}
                     minimumValue={0.1}
@@ -197,7 +200,7 @@ export const ChorusView: React.FC<ChorusViewProps> = ({ moduleId }) => {
                   />
                 </View>
                 <View style={styles.compactControl}>
-                  <Text style={styles.compactLabel}>Depth</Text>
+                  <Text style={styles.compactLabel}>{t('audio:modules.chorus.controls.depth')}</Text>
                   <Slider
                     style={styles.compactSlider}
                     minimumValue={0}
@@ -217,7 +220,7 @@ export const ChorusView: React.FC<ChorusViewProps> = ({ moduleId }) => {
               {/* Wet & Dry */}
               <View style={styles.compactRow}>
                 <View style={styles.compactControl}>
-                  <Text style={styles.compactLabel}>Wet</Text>
+                  <Text style={styles.compactLabel}>{t('audio:modules.chorus.controls.wet')}</Text>
                   <Slider
                     style={styles.compactSlider}
                     minimumValue={0}
@@ -233,7 +236,7 @@ export const ChorusView: React.FC<ChorusViewProps> = ({ moduleId }) => {
                   />
                 </View>
                 <View style={styles.compactControl}>
-                  <Text style={styles.compactLabel}>Dry</Text>
+                  <Text style={styles.compactLabel}>{t('audio:modules.chorus.controls.dry')}</Text>
                   <Slider
                     style={styles.compactSlider}
                     minimumValue={0}
@@ -372,7 +375,7 @@ export const ChorusView: React.FC<ChorusViewProps> = ({ moduleId }) => {
                   {/* Delay, Feedback, Voices, Spread */}
                   <View style={styles.advancedGrid}>
                     <View style={styles.advancedControl}>
-                      <Text style={styles.advancedLabel}>Délai</Text>
+                      <Text style={styles.advancedLabel}>{t('audio:modules.chorus.controls.delay')}</Text>
                       <Text style={styles.advancedValue}>{delay.toFixed(1)}ms</Text>
                       <Slider
                         style={styles.advancedSlider}
@@ -390,7 +393,7 @@ export const ChorusView: React.FC<ChorusViewProps> = ({ moduleId }) => {
                     </View>
                     
                     <View style={styles.advancedControl}>
-                      <Text style={styles.advancedLabel}>Feedback</Text>
+                      <Text style={styles.advancedLabel}>{t('audio:modules.chorus.controls.feedback')}</Text>
                       <Text style={styles.advancedValue}>{feedback.toFixed(0)}%</Text>
                       <Slider
                         style={styles.advancedSlider}
@@ -408,7 +411,7 @@ export const ChorusView: React.FC<ChorusViewProps> = ({ moduleId }) => {
                     </View>
                     
                     <View style={styles.advancedControl}>
-                      <Text style={styles.advancedLabel}>Voix</Text>
+                      <Text style={styles.advancedLabel}>{t('audio:modules.chorus.controls.voices')}</Text>
                       <Text style={styles.advancedValue}>{voices.toFixed(0)}</Text>
                       <Slider
                         style={styles.advancedSlider}
@@ -427,7 +430,7 @@ export const ChorusView: React.FC<ChorusViewProps> = ({ moduleId }) => {
                     </View>
                     
                     <View style={styles.advancedControl}>
-                      <Text style={styles.advancedLabel}>Spread</Text>
+                      <Text style={styles.advancedLabel}>{t('audio:modules.chorus.controls.spread')}</Text>
                       <Text style={styles.advancedValue}>{spread.toFixed(0)}%</Text>
                       <Slider
                         style={styles.advancedSlider}

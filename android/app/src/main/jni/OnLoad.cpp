@@ -34,10 +34,8 @@
 #include <fbjni/fbjni.h>
 #include <react/renderer/componentregistry/ComponentDescriptorProviderRegistry.h>
 #include <rncore.h>
-#include "NativeFFmpegModule.h"
-
-// === ÉGALISEUR AUDIO INCLUDES ===
-// #include <NativeAudioEqualizer.h>  // TODO: Activer quand NativeAudioEqualizer.h sera implémenté
+// FFmpeg module supprimé - utilisation du moteur audio C++ pur
+#include "AudioRecord/NativeAudioRecorder.h"
 
 #ifdef REACT_NATIVE_APP_CODEGEN_HEADER
 #include REACT_NATIVE_APP_CODEGEN_HEADER
@@ -76,9 +74,9 @@ cxxModuleProvider(const std::string &name,
   //   return std::make_shared<NativeCxxModuleExample>(jsInvoker);
   // }
 
-  // Enregistrer le module FFmpeg
-  if (name == NativeFFmpegModule::kModuleName) {
-    return std::make_shared<NativeFFmpegModule>(jsInvoker);
+  // Enregistrer le module AudioRecorder
+  if (name == NativeAudioRecorder::kModuleName) {
+    return std::make_shared<NativeAudioRecorder>(jsInvoker);
   }
 
   // And we fallback to the CXX module providers autolinked

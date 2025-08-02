@@ -17,6 +17,7 @@ import { SpectrumAnalyzer } from './SpectrumAnalyzer';
 import { Oscilloscope } from './Oscilloscope';
 import { Visualizer3D } from './Visualizer3D';
 import { useAudioTheme, useVisualizerColors } from '../../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../../i18n';
 
 type VisualizerMode = 'levels' | 'spectrum' | 'oscilloscope' | '3d';
 
@@ -31,6 +32,7 @@ export const VisualizerPanel: React.FC<VisualizerPanelProps> = ({
 }) => {
   const audioTheme = useAudioTheme();
   const visualizerColors = useVisualizerColors();
+  const { t } = useTranslation();
   const [activeMode, setActiveMode] = useState<VisualizerMode>(defaultMode);
   type ColorScheme = 'classic' | 'gradient' | 'heat';
   const [settings, setSettings] = useState<{
@@ -50,10 +52,10 @@ export const VisualizerPanel: React.FC<VisualizerPanelProps> = ({
     label: string;
     icon: string;
   }> = [
-    { id: 'levels', label: 'Niveaux', icon: '│' },
-    { id: 'spectrum', label: 'Spectre', icon: '▁▃▅▇' },
-    { id: 'oscilloscope', label: 'Oscillo', icon: '∿' },
-    { id: '3d', label: '3D', icon: '◈' },
+    { id: 'levels', label: t('audio:visualizers.modes.levels'), icon: '│' },
+    { id: 'spectrum', label: t('audio:visualizers.modes.spectrum'), icon: '▁▃▅▇' },
+    { id: 'oscilloscope', label: t('audio:visualizers.modes.oscilloscope'), icon: '∿' },
+    { id: '3d', label: t('audio:visualizers.modes.3d'), icon: '◈' },
   ];
 
   const renderVisualizer = () => {
@@ -136,7 +138,7 @@ export const VisualizerPanel: React.FC<VisualizerPanelProps> = ({
             onPress={() => setSettings(prev => ({ ...prev, showGrid: !prev.showGrid }))}
           >
             <Text style={styles.controlIcon}>⊞</Text>
-            <Text style={styles.controlLabel}>Grille</Text>
+            <Text style={styles.controlLabel}>{t('audio:visualizers.controls.grid')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -147,7 +149,7 @@ export const VisualizerPanel: React.FC<VisualizerPanelProps> = ({
             onPress={() => setSettings(prev => ({ ...prev, showLabels: !prev.showLabels }))}
           >
             <Text style={styles.controlIcon}>Aa</Text>
-            <Text style={styles.controlLabel}>Labels</Text>
+            <Text style={styles.controlLabel}>{t('audio:visualizers.controls.labels')}</Text>
           </TouchableOpacity>
 
           {activeMode === 'spectrum' && (
@@ -161,7 +163,7 @@ export const VisualizerPanel: React.FC<VisualizerPanelProps> = ({
               }}
             >
               <Text style={styles.controlIcon}>🎨</Text>
-              <Text style={styles.controlLabel}>Couleur</Text>
+              <Text style={styles.controlLabel}>{t('audio:visualizers.controls.color')}</Text>
             </TouchableOpacity>
           )}
 

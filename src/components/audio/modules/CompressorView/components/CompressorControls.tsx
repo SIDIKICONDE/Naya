@@ -8,6 +8,7 @@ import { CompressorControl } from './CompressorControl';
 import { formatRatio, formatAttack, formatRelease, formatDecibels, getValueColor } from '../utils';
 import { PARAM_RANGES, getThemedControlColors } from '../constants';
 import { useAudioTheme } from '../../../../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../../../../i18n';
 import type { CompressorState } from '../types';
 
 interface CompressorControlsProps {
@@ -23,6 +24,7 @@ export const CompressorControls: React.FC<CompressorControlsProps> = ({
 }) => {
   const audioTheme = useAudioTheme();
   const CONTROL_COLORS = getThemedControlColors(audioTheme.colors);
+  const { t } = useTranslation();
   const { threshold, ratio, attack, release, knee, makeupGain } = state;
 
   // Couleurs dynamiques selon les valeurs
@@ -61,7 +63,7 @@ export const CompressorControls: React.FC<CompressorControlsProps> = ({
     <View style={[styles.mainControls, compact && styles.compactControls]}>
       {/* Threshold */}
       <CompressorControl
-        label="Seuil"
+        label={t('audio:modules.compressor.controls.threshold')}
         value={threshold}
         min={PARAM_RANGES.threshold.min}
         max={PARAM_RANGES.threshold.max}
@@ -76,7 +78,7 @@ export const CompressorControls: React.FC<CompressorControlsProps> = ({
 
       {/* Ratio */}
       <CompressorControl
-        label="Ratio"
+        label={t('audio:modules.compressor.controls.ratio')}
         value={ratio}
         min={PARAM_RANGES.ratio.min}
         max={PARAM_RANGES.ratio.max}
@@ -93,7 +95,7 @@ export const CompressorControls: React.FC<CompressorControlsProps> = ({
       <View style={[styles.timeControls, compact && styles.compactTimeControls]}>
         <View style={styles.halfControl}>
           <CompressorControl
-            label="Attaque"
+            label={t('audio:modules.compressor.controls.attack')}
             value={attack}
             min={PARAM_RANGES.attack.min}
             max={PARAM_RANGES.attack.max}
@@ -109,7 +111,7 @@ export const CompressorControls: React.FC<CompressorControlsProps> = ({
 
         <View style={styles.halfControl}>
           <CompressorControl
-            label="Relâchement"
+            label={t('audio:modules.compressor.controls.release')}
             value={release}
             min={PARAM_RANGES.release.min}
             max={PARAM_RANGES.release.max}
@@ -129,7 +131,7 @@ export const CompressorControls: React.FC<CompressorControlsProps> = ({
         <>
           {/* Knee */}
           <CompressorControl
-            label="Knee"
+            label={t('audio:modules.compressor.controls.knee')}
             value={knee}
             min={PARAM_RANGES.knee.min}
             max={PARAM_RANGES.knee.max}
@@ -144,7 +146,7 @@ export const CompressorControls: React.FC<CompressorControlsProps> = ({
 
           {/* Makeup Gain */}
           <CompressorControl
-            label="Gain de compensation"
+            label={t('audio:modules.compressor.controls.makeupGain')}
             value={makeupGain}
             min={PARAM_RANGES.makeupGain.min}
             max={PARAM_RANGES.makeupGain.max}
@@ -164,7 +166,7 @@ export const CompressorControls: React.FC<CompressorControlsProps> = ({
         <View style={styles.compactTimeControls}>
           <View style={styles.halfControl}>
             <CompressorControl
-              label="Knee"
+              label={t('audio:modules.compressor.controls.knee')}
               value={knee}
               min={PARAM_RANGES.knee.min}
               max={PARAM_RANGES.knee.max}
@@ -179,7 +181,7 @@ export const CompressorControls: React.FC<CompressorControlsProps> = ({
           </View>
           <View style={styles.halfControl}>
             <CompressorControl
-              label="Gain"
+              label={t('audio:modules.compressor.controls.gainCompact')}
               value={makeupGain}
               min={PARAM_RANGES.makeupGain.min}
               max={PARAM_RANGES.makeupGain.max}

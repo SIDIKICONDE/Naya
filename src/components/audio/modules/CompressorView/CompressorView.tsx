@@ -15,6 +15,7 @@ import {
 import type { CompressorViewProps } from './types';
 import { useModuleColors, useAudioTheme } from '../../../../theme/hooks/useAudioTheme';
 import { createModuleStyles } from '../../../../theme/utils/audioStyles';
+import { useTranslation } from '../../../../i18n';
 
 export const CompressorView: React.FC<CompressorViewProps> = ({ moduleId }) => {
   const {
@@ -31,6 +32,7 @@ export const CompressorView: React.FC<CompressorViewProps> = ({ moduleId }) => {
   const audioTheme = useAudioTheme();
   const moduleColors = useModuleColors('compressor');
   const themedStyles = createModuleStyles(audioTheme.colors, moduleColors.primary);
+  const { t } = useTranslation();
   
   // Animation pour la section avancée
   const advancedOpacity = React.useRef(new Animated.Value(0)).current;
@@ -190,7 +192,7 @@ export const CompressorView: React.FC<CompressorViewProps> = ({ moduleId }) => {
             onPress={toggleCompact}
           >
             <Text style={[localStyles.modeButtonText, state.compactMode && localStyles.modeButtonTextActive]}>
-              {state.compactMode ? '✓ Compact' : 'Compact'}
+              {state.compactMode ? t('audio:modules.compressor.modes.compactActive') : t('audio:modules.compressor.modes.compact')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -198,7 +200,7 @@ export const CompressorView: React.FC<CompressorViewProps> = ({ moduleId }) => {
             onPress={toggleAdvanced}
           >
             <Text style={[localStyles.advancedToggleText, state.showAdvanced && localStyles.modeButtonTextActive]}>
-              {state.showAdvanced ? '▼ Avancé' : '▶ Avancé'}
+              {state.showAdvanced ? t('audio:modules.compressor.modes.advancedExpanded') : t('audio:modules.compressor.modes.advancedCollapsed')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -210,10 +212,9 @@ export const CompressorView: React.FC<CompressorViewProps> = ({ moduleId }) => {
               { opacity: advancedOpacity }
             ]}
           >
-            <Text style={localStyles.advancedTitle}>Paramètres avancés</Text>
+            <Text style={localStyles.advancedTitle}>{t('audio:modules.compressor.advanced.title')}</Text>
             <Text style={localStyles.advancedDescription}>
-              Les contrôles avancés permettent un réglage fin des paramètres
-              pour des applications spécialisées.
+              {t('audio:modules.compressor.advanced.description')}
             </Text>
           </Animated.View>
         )}

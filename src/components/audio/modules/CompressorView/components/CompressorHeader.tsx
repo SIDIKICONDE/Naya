@@ -6,6 +6,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Animated, StyleSheet } from 'react-native';
 import { getThemedControlColors } from '../constants';
 import { useAudioTheme, useModuleColors } from '../../../../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../../../../i18n';
 
 interface CompressorHeaderProps {
   isActive: boolean;
@@ -29,6 +30,7 @@ export const CompressorHeader: React.FC<CompressorHeaderProps> = ({
   const audioTheme = useAudioTheme();
   const moduleColors = useModuleColors('compressor');
   const CONTROL_COLORS = getThemedControlColors(audioTheme.colors);
+  const { t } = useTranslation();
 
   // Styles thématiques 
   const styles = StyleSheet.create({
@@ -166,7 +168,7 @@ export const CompressorHeader: React.FC<CompressorHeaderProps> = ({
   return (
     <View style={styles.header}>
       <View style={styles.titleSection}>
-        <Text style={styles.title}>Compresseur</Text>
+        <Text style={styles.title}>{t('audio:modules.compressor.title')}</Text>
         <View style={styles.headerButtons}>
           {onTogglePresets && (
             <TouchableOpacity
@@ -192,7 +194,7 @@ export const CompressorHeader: React.FC<CompressorHeaderProps> = ({
       <View style={styles.metersContainer}>
         {/* Gain Reduction Meter */}
         <View style={styles.grMeter}>
-          <Text style={styles.grLabel}>GR</Text>
+          <Text style={styles.grLabel}>{t('audio:modules.compressor.meters.gainReduction')}</Text>
           <View style={styles.grMeterContainer}>
             <Animated.View
               style={[
@@ -219,7 +221,7 @@ export const CompressorHeader: React.FC<CompressorHeaderProps> = ({
         
         {/* Input/Output Level */}
         <View style={styles.levelMeter}>
-          <Text style={styles.levelLabel}>I/O</Text>
+          <Text style={styles.levelLabel}>{t('audio:modules.compressor.meters.inputOutput')}</Text>
           <Text style={styles.levelValue}>
             {threshold > -30 ? `${(threshold + 12).toFixed(0)}` : '0'} dB
           </Text>

@@ -16,6 +16,7 @@ import Svg, { Path, Line, G } from 'react-native-svg';
 import { audioInterface } from '../../../audio/AudioInterface';
 import { AudioMockData } from './AudioMockData'; // TODO: À supprimer
 import { useAudioTheme, useVisualizerColors } from '../../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../../i18n';
 
 interface OscilloscopeProps {
   bufferSize?: number;
@@ -40,6 +41,7 @@ export const Oscilloscope: React.FC<OscilloscopeProps> = ({
 }) => {
   const audioTheme = useAudioTheme();
   const visualizerColors = useVisualizerColors();
+  const { t } = useTranslation();
   const [dimensions, setDimensions] = useState(() => {
     const { width } = Dimensions.get('window');
     return {
@@ -191,7 +193,7 @@ export const Oscilloscope: React.FC<OscilloscopeProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Oscilloscope</Text>
+        <Text style={styles.title}>{t('audio:visualizers.oscilloscope.title')}</Text>
         <View style={styles.controls}>
           <TouchableOpacity
             style={[styles.controlButton, isPaused && styles.activeButton]}
@@ -272,7 +274,7 @@ export const Oscilloscope: React.FC<OscilloscopeProps> = ({
           Trig: {triggerMode} @ {triggerLevel.toFixed(2)}V
         </Text>
         <Text style={styles.statusText}>
-          {bufferSize} samples @ 48kHz
+          {bufferSize} échantillons @ 48kHz
         </Text>
       </View>
     </View>

@@ -15,6 +15,7 @@ import {
 import { audioInterface } from '../../../audio/AudioInterface';
 import { AudioMockData } from './AudioMockData'; // TODO: À supprimer
 import { useAudioTheme, useVisualizerColors } from '../../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../../i18n';
 
 interface SpectrumAnalyzerProps {
   fftSize?: number;
@@ -41,6 +42,7 @@ export const SpectrumAnalyzer: React.FC<SpectrumAnalyzerProps> = ({
 }) => {
   const audioTheme = useAudioTheme();
   const visualizerColors = useVisualizerColors();
+  const { t } = useTranslation();
   const [dimensions, setDimensions] = useState(() => {
     const { width } = Dimensions.get('window');
     return {
@@ -183,7 +185,7 @@ export const SpectrumAnalyzer: React.FC<SpectrumAnalyzerProps> = ({
     <View style={styles.container}>
       {showLabels && (
         <View style={styles.header}>
-          <Text style={styles.title}>Analyseur de Spectre</Text>
+          <Text style={styles.title}>{t('audio:visualizers.spectrumAnalyzer.title')}</Text>
           <Text style={styles.subtitle}>{fftSize} points FFT</Text>
         </View>
       )}
@@ -289,7 +291,7 @@ export const SpectrumAnalyzer: React.FC<SpectrumAnalyzerProps> = ({
           {minFrequency}Hz - {maxFrequency/1000}kHz
         </Text>
         <Text style={styles.statusText}>
-          Peak: -12.3 dB
+          Pic: -12.3 dB
         </Text>
       </View>
     </View>

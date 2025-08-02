@@ -13,14 +13,15 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import type { SaveModalProps } from '../types';
+import type { SaveModalProps } from '../types/index';
 import { SAVE_CATEGORIES, DEFAULT_CATEGORY } from '../constants';
 import { useAudioTheme } from '../../../../theme/hooks/useAudioTheme';
 
 export const SaveModal: React.FC<SaveModalProps> = ({
   visible, 
   onClose, 
-  onSave 
+  onSave,
+  translations
 }) => {
   const audioTheme = useAudioTheme();
   const [presetName, setPresetName] = useState('');
@@ -52,11 +53,11 @@ export const SaveModal: React.FC<SaveModalProps> = ({
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <View style={styles.saveModalContent}>
-          <Text style={styles.saveModalTitle}>Nouveau Preset</Text>
+          <Text style={styles.saveModalTitle}>{translations.title}</Text>
           
           <TextInput
             style={styles.input}
-            placeholder="Nom du preset"
+            placeholder={translations.nameLabel}
             placeholderTextColor={audioTheme.colors.buttonInactive}
             value={presetName}
             onChangeText={setPresetName}
@@ -64,7 +65,7 @@ export const SaveModal: React.FC<SaveModalProps> = ({
           />
 
           <View style={styles.categorySelector}>
-            <Text style={styles.categorySelectorLabel}>Catégorie:</Text>
+            <Text style={styles.categorySelectorLabel}>{translations.categoryLabel}:</Text>
             <View style={styles.categorySelectorButtons}>
               {SAVE_CATEGORIES.map((cat) => (
                 <TouchableOpacity
@@ -83,11 +84,11 @@ export const SaveModal: React.FC<SaveModalProps> = ({
 
           <View style={styles.saveModalActions}>
             <TouchableOpacity style={styles.cancelButton} onPress={handleClose}>
-              <Text style={styles.cancelButtonText}>Annuler</Text>
+              <Text style={styles.cancelButtonText}>{translations.cancel}</Text>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.confirmSaveButton} onPress={handleSave}>
-              <Text style={styles.confirmSaveButtonText}>Sauvegarder</Text>
+              <Text style={styles.confirmSaveButtonText}>{translations.confirm}</Text>
             </TouchableOpacity>
           </View>
         </View>

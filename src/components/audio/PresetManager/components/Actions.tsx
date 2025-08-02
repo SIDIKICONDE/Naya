@@ -4,13 +4,19 @@
 
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import type { ActionsProps } from '../types';
+import type { ActionsProps } from '../types/index';
 import { useAudioTheme } from '../../../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../../../i18n';
 
-export const Actions: React.FC<ActionsProps> = ({ onSave, onImport }) => {
+export const Actions: React.FC<ActionsProps> = ({ onSave, onImport, translations }) => {
   const audioTheme = useAudioTheme();
+  const { t } = useTranslation();
+  
   const handleImport = () => {
-    Alert.alert('Import', 'Fonctionnalité à venir');
+    Alert.alert(
+      t('audio:presetManager.features.importTitle'), 
+      t('audio:presetManager.features.importComingSoon')
+    );
   };
 
   const styles = createStyles(audioTheme);
@@ -19,12 +25,12 @@ export const Actions: React.FC<ActionsProps> = ({ onSave, onImport }) => {
     <View style={styles.actions}>
       <TouchableOpacity style={styles.saveButton} onPress={onSave}>
         <Text style={styles.saveButtonIcon}>💾</Text>
-        <Text style={styles.saveButtonText}>Sauvegarder</Text>
+        <Text style={styles.saveButtonText}>{translations.save}</Text>
       </TouchableOpacity>
       
       <TouchableOpacity style={styles.importButton} onPress={handleImport}>
         <Text style={styles.importButtonIcon}>📥</Text>
-        <Text style={styles.importButtonText}>Importer</Text>
+        <Text style={styles.importButtonText}>{translations.import}</Text>
       </TouchableOpacity>
     </View>
   );

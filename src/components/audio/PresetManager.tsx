@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Modal, FlatList } from 'react-native';
 import { useAudioTheme } from '../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../i18n';
 import { 
   Header, 
   Actions, 
@@ -16,7 +17,14 @@ import {
 } from './PresetManager/components';
 import { usePresets } from './PresetManager/hooks/usePresets';
 import { PRESET_CATEGORIES, MODAL_CONFIG } from './PresetManager/constants';
-import type { PresetManagerProps } from './PresetManager/types';
+import type {
+  PresetManagerProps,
+  ActionsProps,
+  CategoriesProps,
+  PresetCardProps,
+  SaveModalProps,
+  EmptyStateProps,
+} from './PresetManager/types/index';
 import { SoundManager } from './mobile';
 
 export const PresetManager: React.FC<PresetManagerProps> = ({
@@ -35,6 +43,7 @@ export const PresetManager: React.FC<PresetManagerProps> = ({
   } = usePresets();
   
   const audioTheme = useAudioTheme();
+  const { t } = useTranslation();
 
   const handleLoadPreset = (presetId: string) => {
     onLoadPreset(presetId);
@@ -99,19 +108,30 @@ export const PresetManager: React.FC<PresetManagerProps> = ({
       <View style={themedStyles.modalOverlay}>
         <View style={themedStyles.container}>
           <Header 
-            title="🎛️ Gestionnaire de Presets" 
+            title={t('audio:presetManager.title')}
             onClose={onClose} 
           />
 
           <Actions 
             onSave={() => setShowSaveModal(true)}
             onImport={() => {/* Fonctionnalité à venir */}}
+            translations={{
+              save: t('audio:presetManager.actions.save'),
+              import: t('audio:presetManager.actions.import'),
+            }}
           />
 
           <Categories 
             categories={PRESET_CATEGORIES}
             selectedCategory={selectedCategory}
             onCategorySelect={(category) => setSelectedCategory(category)}
+            translations={{
+              all: t('audio:presetManager.categories.all'),
+              favorites: t('audio:presetManager.categories.favorites'),
+              user: t('audio:presetManager.categories.user'),
+              factory: t('audio:presetManager.categories.factory'),
+              recent: t('audio:presetManager.categories.recent'),
+            }}
           />
 
           {/* Contrôles audio intégrés */}
@@ -133,15 +153,33 @@ export const PresetManager: React.FC<PresetManagerProps> = ({
                 preset={item}
                 onLoad={() => handleLoadPreset(item.id)}
                 onDelete={() => handleDeletePreset(item.id, item.name)}
+                translations={{
+                  load: t('audio:presetManager.actions.load'),
+                  delete: t('audio:presetManager.actions.delete'),
+                }}
               />
             )}
-            ListEmptyComponent={<EmptyState />}
+            ListEmptyComponent={
+              <EmptyState 
+                translations={{
+                  title: t('audio:presetManager.emptyState.title'),
+                  description: t('audio:presetManager.emptyState.description'),
+                }}
+              />
+            }
           />
 
           <SaveModal
             visible={showSaveModal}
             onClose={() => setShowSaveModal(false)}
             onSave={handleSavePreset}
+            translations={{
+              title: t('audio:presetManager.saveModal.title'),
+              nameLabel: t('audio:presetManager.saveModal.nameLabel'),
+              categoryLabel: t('audio:presetManager.saveModal.categoryLabel'),
+              cancel: t('audio:presetManager.saveModal.cancel'),
+              confirm: t('audio:presetManager.saveModal.confirm'),
+            }}
           />
         </View>
       </View>

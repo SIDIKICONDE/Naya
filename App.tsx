@@ -7,7 +7,7 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { ThemeProvider, useTheme } from './src/theme/providers/ThemeProvider';
 import { AudioInterfaceView } from './src/components/audio/AudioInterfaceView';
-import FFmpegTestComponent from './src/components/audio/FFmpegTestComponent';
+import AudioRecorderTest from './src/components/audio/AudioRecorderTest';
 
 const AppContent: React.FC = () => {
   const { theme } = useTheme();
@@ -19,7 +19,7 @@ const AppContent: React.FC = () => {
         backgroundColor="transparent"
         translucent
       />
-      <FFmpegTestComponent />
+      <AudioRecorderTest />
     </>
   );
 };

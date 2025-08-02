@@ -20,7 +20,6 @@
     "react": "19.1.0",
     "react-i18next": "^15.6.1",
     "react-native": "0.80.2",
-    "react-native-document-picker": "^9.3.1",
     "react-native-svg": "^15.12.1"
   },
   "devDependencies": {
@@ -61,7 +60,8 @@
     },
     "ios": {
       "modulesProvider": {
-        "NativeFFmpegModule": "NativeFFmpegModuleProvider"
+        "NativeFFmpegModule": "NativeFFmpegModuleProvider",
+        "NativeAudioRecorder": "NativeAudioRecorderProvider"
       }
     }
   }

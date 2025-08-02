@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { audioInterface } from '../../../audio/AudioInterface';
+import { useTranslation } from '../../../i18n';
 
 interface LimiterViewProps {
   moduleId: string;
@@ -27,6 +28,7 @@ export const LimiterView: React.FC<LimiterViewProps> = ({ moduleId }) => {
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const module = audioInterface.getModule(moduleId);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!module) return;
@@ -66,28 +68,28 @@ export const LimiterView: React.FC<LimiterViewProps> = ({ moduleId }) => {
     return (
       <View style={[styles.container, styles.containerDefault]}>
         <View style={[styles.header, styles.headerDefault]}>
-          <Text style={styles.title}>🛡️ Limiteur</Text>
+          <Text style={styles.title}>{t('audio:modules.limiter.title')}</Text>
           <View style={styles.modeButtons}>
             <TouchableOpacity style={styles.modeButton} onPress={toggleCompact}>
-              <Text style={styles.modeButtonText}>Compact</Text>
+              <Text style={styles.modeButtonText}>{t('audio:modules.limiter.modes.compact')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.modeButton} onPress={toggleAdvanced}>
-              <Text style={styles.modeButtonText}>Avancé</Text>
+              <Text style={styles.modeButtonText}>{t('audio:modules.limiter.modes.advanced')}</Text>
             </TouchableOpacity>
           </View>
         </View>
         
         <ScrollView style={[styles.scrollContainer, styles.scrollContainerDefault]}>
           <View style={styles.defaultLayout}>
-            <Text style={styles.modeInstruction}>Choisir un mode d'affichage</Text>
+            <Text style={styles.modeInstruction}>{t('audio:modules.limiter.display.title')}</Text>
             <View style={styles.modeSelection}>
               <TouchableOpacity style={styles.modeSelectionButton} onPress={toggleCompact}>
-                <Text style={styles.modeSelectionText}>📱 Compact</Text>
-                <Text style={styles.modeSelectionDesc}>Contrôles essentiels en 2x2</Text>
+                <Text style={styles.modeSelectionText}>{t('audio:modules.limiter.display.compact.title')}</Text>
+                <Text style={styles.modeSelectionDesc}>{t('audio:modules.limiter.display.compact.description')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.modeSelectionButton} onPress={toggleAdvanced}>
-                <Text style={styles.modeSelectionText}>⚙️ Avancé</Text>
-                <Text style={styles.modeSelectionDesc}>Tous contrôles + visualisation</Text>
+                <Text style={styles.modeSelectionText}>{t('audio:modules.limiter.display.advanced.title')}</Text>
+                <Text style={styles.modeSelectionDesc}>{t('audio:modules.limiter.display.advanced.description')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -112,7 +114,7 @@ export const LimiterView: React.FC<LimiterViewProps> = ({ moduleId }) => {
             onPress={toggleCompact}
           >
             <Text style={[styles.modeButtonText, compactMode && styles.modeButtonTextActive]}>
-              {compactMode ? '✓ Compact' : 'Compact'}
+              {compactMode ? t('audio:modules.limiter.modes.compactActive') : t('audio:modules.limiter.modes.compact')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity 
@@ -120,7 +122,7 @@ export const LimiterView: React.FC<LimiterViewProps> = ({ moduleId }) => {
             onPress={toggleAdvanced}
           >
             <Text style={[styles.modeButtonText, showAdvanced && styles.modeButtonTextActive]}>
-              {showAdvanced ? '✓ Avancé' : 'Avancé'}
+              {showAdvanced ? t('audio:modules.limiter.modes.advancedActive') : t('audio:modules.limiter.modes.advanced')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -133,12 +135,12 @@ export const LimiterView: React.FC<LimiterViewProps> = ({ moduleId }) => {
         {compactMode ? (
           // Mode Compact
           <View style={styles.compactLayout}>
-            <Text style={styles.compactTitle}>Contrôles principaux</Text>
+            <Text style={styles.compactTitle}>{t('audio:modules.limiter.controls.title')}</Text>
             <View style={styles.compactControls}>
               <View style={styles.compactRow}>
                 {/* Seuil */}
                 <View style={styles.compactControl}>
-                  <Text style={styles.compactLabel}>Seuil</Text>
+                  <Text style={styles.compactLabel}>{t('audio:modules.limiter.controls.threshold')}</Text>
                   <Slider
                     style={styles.compactSlider}
                     minimumValue={-30}
@@ -156,7 +158,7 @@ export const LimiterView: React.FC<LimiterViewProps> = ({ moduleId }) => {
 
                 {/* Release */}
                 <View style={styles.compactControl}>
-                  <Text style={styles.compactLabel}>Release</Text>
+                  <Text style={styles.compactLabel}>{t('audio:modules.limiter.controls.release')}</Text>
                   <Slider
                     style={styles.compactSlider}
                     minimumValue={1}
@@ -176,7 +178,7 @@ export const LimiterView: React.FC<LimiterViewProps> = ({ moduleId }) => {
               <View style={styles.compactRow}>
                 {/* Look-ahead */}
                 <View style={styles.compactControl}>
-                  <Text style={styles.compactLabel}>Look-Ah</Text>
+                  <Text style={styles.compactLabel}>{t('audio:modules.limiter.controls.lookAhead')}</Text>
                   <Slider
                     style={styles.compactSlider}
                     minimumValue={0}
@@ -194,7 +196,7 @@ export const LimiterView: React.FC<LimiterViewProps> = ({ moduleId }) => {
 
                 {/* Output Gain */}
                 <View style={styles.compactControl}>
-                  <Text style={styles.compactLabel}>Output</Text>
+                  <Text style={styles.compactLabel}>{t('audio:modules.limiter.controls.output')}</Text>
                   <Slider
                     style={styles.compactSlider}
                     minimumValue={-12}

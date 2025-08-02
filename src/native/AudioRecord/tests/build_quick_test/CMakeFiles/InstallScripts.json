@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/m1/Desktop/Naya/src/native/AudioRecord/tests/build_quick_test/cmake_install.cmake",
+		"/Users/m1/Desktop/Naya/src/native/AudioRecord/tests/build_quick_test/_deps/googletest-build/cmake_install.cmake",
+		"/Users/m1/Desktop/Naya/src/native/AudioRecord/tests/build_quick_test/_deps/googletest-build/googlemock/cmake_install.cmake",
+		"/Users/m1/Desktop/Naya/src/native/AudioRecord/tests/build_quick_test/_deps/googletest-build/googletest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

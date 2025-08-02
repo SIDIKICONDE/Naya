@@ -4,13 +4,14 @@
 
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
-import type { PresetCardProps } from '../types';
+import type { PresetCardProps } from '../types/index';
 import { useAudioTheme } from '../../../../theme/hooks/useAudioTheme';
 
 export const PresetCard: React.FC<PresetCardProps> = ({
   preset, 
   onLoad, 
-  onDelete 
+  onDelete,
+  translations
 }) => {
   const audioTheme = useAudioTheme();
   const [isPlaying, setIsPlaying] = useState(false);
@@ -93,7 +94,7 @@ export const PresetCard: React.FC<PresetCardProps> = ({
       
       <View style={styles.presetActions}>
         <TouchableOpacity style={styles.loadButton} onPress={onLoad}>
-          <Text style={styles.loadButtonText}>Charger</Text>
+          <Text style={styles.loadButtonText}>{translations.load}</Text>
         </TouchableOpacity>
         
         {preset.category === 'User' && (

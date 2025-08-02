@@ -4,8 +4,9 @@
 
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Modal, ScrollView } from 'react-native';
-import { COMPRESSOR_PRESETS } from '../constants';
+import { createLocalizedPresets } from '../constants';
 import { useAudioTheme, useModuleColors } from '../../../../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../../../../i18n';
 import type { CompressorPreset } from '../types';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
@@ -23,6 +24,10 @@ export const CompressorPresets: React.FC<CompressorPresetsProps> = ({
 }) => {
   const audioTheme = useAudioTheme();
   const moduleColors = useModuleColors('compressor');
+  const { t } = useTranslation();
+  
+  // Créer les presets localisés
+  const localizedPresets = createLocalizedPresets(t);
   
   // Styles thématiques
   const styles = StyleSheet.create({
@@ -137,7 +142,7 @@ export const CompressorPresets: React.FC<CompressorPresetsProps> = ({
     const columns: CompressorPreset[][] = Array.from({ length: columnCount }, () => []);
     
     // Distribuer les presets dans les colonnes de manière équilibrée
-    COMPRESSOR_PRESETS.forEach((preset, index) => {
+    localizedPresets.forEach((preset, index) => {
       const columnIndex = index % columnCount;
       columns[columnIndex].push(preset);
     });
@@ -158,7 +163,7 @@ export const CompressorPresets: React.FC<CompressorPresetsProps> = ({
         <View style={styles.modalContent}>
           {/* Header de la modal */}
           <View style={styles.modalHeader}>
-            <Text style={styles.modalTitle}>🎛️ Presets Professionnels</Text>
+            <Text style={styles.modalTitle}>{t('audio:modules.compressor.presets.title')}</Text>
             <TouchableOpacity style={styles.closeButton} onPress={onClose}>
               <Text style={styles.closeButtonText}>✕</Text>
             </TouchableOpacity>
@@ -183,9 +188,9 @@ export const CompressorPresets: React.FC<CompressorPresetsProps> = ({
                       
                       {/* Paramètres techniques du preset */}
                       <View style={styles.presetParams}>
-                        <Text style={styles.paramText}>Seuil: {preset.threshold}dB</Text>
-                        <Text style={styles.paramText}>Ratio: {preset.ratio}:1</Text>
-                        <Text style={styles.paramText}>Attaque: {preset.attack}ms</Text>
+                        <Text style={styles.paramText}>{t('audio:modules.compressor.presets.labels.threshold')}: {preset.threshold}dB</Text>
+                        <Text style={styles.paramText}>{t('audio:modules.compressor.presets.labels.ratio')}: {preset.ratio}:1</Text>
+                        <Text style={styles.paramText}>{t('audio:modules.compressor.presets.labels.attack')}: {preset.attack}ms</Text>
                       </View>
                     </TouchableOpacity>
                   ))}
