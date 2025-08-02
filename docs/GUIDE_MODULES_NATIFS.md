@@ -309,4 +309,59 @@ Après `pod install`, Codegen génère dans `ios/build/generated/ios/` :
 
 ---
 
+## 🔍 Solutions aux problèmes courants de FFmpeg
+
+### 1. Erreur "NayaNativeModulesJSI.h file not found"
+Cette erreur apparaît quand Codegen génère un fichier avec un nom différent.
+
+**Solution :**
+1. Vérifier le nom réel généré dans `ios/build/generated/ios/`
+2. Mettre à jour les includes dans les fichiers C++ :
+   ```cpp
+   // Ancien (incorrect)
+   #include "NayaNativeModulesJSI.h"  // ❌
+
+   // Nouveau (correct)
+   #include "NayaJSI.h"  // ✅ Utiliser le nom généré
+   ```
+
+### 2. Erreur "search path FFmpeg-iOS/lib not found"
+Cette erreur survient quand les chemins FFmpeg sont incorrects.
+
+**Solution :**
+1. Structure correcte :
+   ```
+   Naya/
+   ├── ios/
+   │   └── FFmpeg/      ← Nouveau nom
+   │       ├── include/
+   │       └── lib/
+   ```
+
+2. Corriger les chemins dans Xcode :
+   ```
+   # project.pbxproj
+   "$(SRCROOT)/../FFmpeg/include"  ✅
+   "$(SRCROOT)/../FFmpeg/lib"     ✅
+   ```
+
+### 3. Erreur de compilation (code 65)
+Cette erreur est souvent liée aux problèmes ci-dessus.
+
+**Solution :**
+1. Nettoyer :
+   ```bash
+   cd ios
+   pod deintegrate
+   pod install
+   ```
+
+2. Vérifier :
+   - Headers FFmpeg présents
+   - Chemins Xcode corrects
+   - Includes JSI à jour
+   - Bibliothèques FFmpeg installées
+
+---
+
 Ce processus permet de créer des modules natifs performants et maintenables, exploitant pleinement les capacités de la nouvelle architecture React Native.

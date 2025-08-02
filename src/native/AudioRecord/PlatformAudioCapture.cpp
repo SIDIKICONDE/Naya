@@ -27,7 +27,7 @@ PlatformAudioCaptureFactory::Platform PlatformAudioCaptureFactory::DetectPlatfor
         current_platform_ = Platform::MACOS;
     #endif
 #elif defined(__ANDROID__)
-    current_platform_ = Platform::ANDROID;
+    current_platform_ = Platform::ANDROID_PLATFORM;
 #elif defined(_WIN32)
     current_platform_ = Platform::WINDOWS;
 #elif defined(__linux__)
@@ -50,7 +50,7 @@ std::unique_ptr<AudioCaptureInterface> PlatformAudioCaptureFactory::CreateNative
 #endif
             
 #ifdef __ANDROID__
-        case Platform::ANDROID:
+        case Platform::ANDROID_PLATFORM:
             return std::make_unique<AndroidAudioCapture>();
 #endif
             
@@ -72,7 +72,7 @@ std::string PlatformAudioCaptureFactory::GetPlatformName() {
     
     switch (platform) {
         case Platform::IOS: return "iOS";
-        case Platform::ANDROID: return "Android";
+        case Platform::ANDROID_PLATFORM: return "Android";
         case Platform::WINDOWS: return "Windows";
         case Platform::LINUX: return "Linux";
         case Platform::MACOS: return "macOS";
@@ -99,7 +99,7 @@ AudioCaptureFactory::PlatformCapabilities PlatformAudioCaptureFactory::GetNative
             caps.min_latency_ms = 5.0f; // iOS peut descendre très bas
             break;
             
-        case Platform::ANDROID:
+        case Platform::ANDROID_PLATFORM:
             caps.supported_sample_rates = {8000, 16000, 22050, 44100, 48000};
             caps.max_channels = 2;
             caps.supported_bit_depths = {16, 24};
@@ -127,7 +127,7 @@ float PlatformAudioCaptureFactory::GetPlatformLatency() {
     
     switch (platform) {
         case Platform::IOS: return 10.0f;      // iOS optimisé
-        case Platform::ANDROID: return 40.0f;  // Android variable
+        case Platform::ANDROID_PLATFORM: return 40.0f;  // Android variable
         case Platform::WINDOWS: return 30.0f;  // WASAPI
         case Platform::LINUX: return 25.0f;    // ALSA/PulseAudio
         case Platform::MACOS: return 15.0f;    // CoreAudio
@@ -645,7 +645,7 @@ size_t GetOptimalBufferSize(uint32_t sample_rate, uint16_t /* channels */) {
             // iOS préfère des buffers plus petits pour latence minimale
             return static_cast<size_t>(sample_rate * 0.005); // 5ms
             
-        case PlatformAudioCaptureFactory::Platform::ANDROID:
+        case PlatformAudioCaptureFactory::Platform::ANDROID_PLATFORM:
             // Android nécessite des buffers plus gros
             return static_cast<size_t>(sample_rate * 0.02); // 20ms
             

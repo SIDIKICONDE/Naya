@@ -15,7 +15,15 @@ endforeach()
 
 # Collecter les sources C++ du projet - avec vérification (chemin corrigé)
 file(GLOB_RECURSE AUDIORECORD_SOURCES 
+  "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../src/native/NativeAudioRecorder.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../src/native/AudioRecord/*.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../src/native/AudioRecord/PlatformAudioCapture.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../src/native/AudioRecord/AudioRecorder.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../src/native/AudioRecord/AudioCaptureCpp.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../src/native/AudioRecord/AudioEncoders.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../src/native/AudioRecord/AudioDSPProcessors.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../src/native/AudioRecord/AudioBufferPool.cpp"
+  
 )
 
 # Exclure les fichiers de test
@@ -31,14 +39,10 @@ message(STATUS "Sources trouvées: ${AUDIORECORD_SOURCES}")
 # Créer la bibliothèque principale AVEC les sources
 add_library(${CMAKE_PROJECT_NAME} SHARED ${AUDIORECORD_SOURCES})
 
-# Inclure les headers du dossier AudioRecord (chemins corrigés)
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE 
-  "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../src/native"
-  "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../src/native/AudioRecord"
-)
 
 # Lier FFmpeg et les bibliothèques système
 target_link_libraries(${CMAKE_PROJECT_NAME}
   ${ffmpeg_libs_names}
   android
   log)
+  target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ../../../../../../src/native/AudioRecord)

@@ -62,26 +62,26 @@ export const DEFAULT_BANDS: EqualizerBand[] = [
 export const DEFAULT_PRESETS: PresetItem[] = [
   {
     id: 'flat',
-    name: 'Plat',
-    description: 'Aucune modification',
+    name: 'audio:equalizer.defaultPresets.flat.name',
+    description: 'audio:equalizer.defaultPresets.flat.description',
     bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   },
   {
     id: 'vocal',
-    name: 'Voix',
-    description: 'Amélioration des voix',
+    name: 'audio:equalizer.defaultPresets.vocal.name',
+    description: 'audio:equalizer.defaultPresets.vocal.description',
     bands: [-2, -1, 1, 3, 4, 3, 2, 1, -1, -2]
   },
   {
     id: 'bass_boost',
-    name: 'Bass Boost',
-    description: 'Renforcement des basses',
+    name: 'audio:equalizer.defaultPresets.bassBoost.name',
+    description: 'audio:equalizer.defaultPresets.bassBoost.description',
     bands: [6, 4, 2, 1, 0, -1, -1, -1, 0, 0]
   },
   {
     id: 'treble_boost',
-    name: 'Treble Boost',
-    description: 'Renforcement des aigus',
+    name: 'audio:equalizer.defaultPresets.trebleBoost.name',
+    description: 'audio:equalizer.defaultPresets.trebleBoost.description',
     bands: [0, 0, -1, -1, 0, 1, 2, 4, 6, 4]
   }
 ];

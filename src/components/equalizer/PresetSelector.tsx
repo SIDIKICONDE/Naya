@@ -14,6 +14,7 @@ import {
   Alert,
 } from 'react-native';
 import { PresetItem, DEFAULT_PRESETS } from './types';
+import { useAudioTheme } from '../../theme/hooks/useAudioTheme';
 
 interface PresetSelectorProps {
   currentPreset?: string;
@@ -30,6 +31,8 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [presets] = useState<PresetItem[]>(DEFAULT_PRESETS);
+  const audioTheme = useAudioTheme();
+  const themedStyles = createStyles(audioTheme);
 
   const handlePresetSelect = (preset: PresetItem) => {
     onPresetSelected(preset);
@@ -53,39 +56,45 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({
     );
   };
 
+  const getCurveColor = (gain: number) => {
+    if (gain > 0) return audioTheme.colors.rmsNormal;
+    if (gain < 0) return audioTheme.colors.rmsAlert;
+    return audioTheme.colors.moduleBackground;
+  };
+
   const renderPresetItem = ({ item }: { item: PresetItem }) => (
     <TouchableOpacity
       style={[
-        styles.presetItem,
-        currentPreset === item.id && styles.presetItemSelected
+        themedStyles.presetItem,
+        currentPreset === item.id && themedStyles.presetItemSelected
       ]}
       onPress={() => handlePresetSelect(item)}
     >
-      <View style={styles.presetInfo}>
+      <View style={themedStyles.presetInfo}>
         <Text style={[
-          styles.presetName,
-          currentPreset === item.id && styles.presetNameSelected
+          themedStyles.presetName,
+          currentPreset === item.id && themedStyles.presetNameSelected
         ]}>
           {item.name}
         </Text>
         <Text style={[
-          styles.presetDescription,
-          currentPreset === item.id && styles.presetDescriptionSelected
+          themedStyles.presetDescription,
+          currentPreset === item.id && themedStyles.presetDescriptionSelected
         ]}>
           {item.description}
         </Text>
       </View>
       
       {/* Aperçu visuel de la courbe */}
-      <View style={styles.presetCurve}>
+      <View style={themedStyles.presetCurve}>
         {item.bands.map((gain, index) => (
           <View
             key={index}
             style={[
-              styles.curveBand,
+              themedStyles.curveBand,
               {
                 height: Math.max(2, Math.abs(gain) * 2 + 2),
-                backgroundColor: gain > 0 ? '#4CAF50' : gain < 0 ? '#FF5722' : '#E0E0E0',
+                backgroundColor: getCurveColor(gain),
                 marginTop: gain < 0 ? 20 - Math.abs(gain) * 2 : 20 - gain * 2,
               }
             ]}
@@ -96,16 +105,16 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Presets</Text>
+    <View style={themedStyles.container}>
+      <Text style={themedStyles.title}>Presets</Text>
       
-      <View style={styles.buttonsRow}>
+      <View style={themedStyles.buttonsRow}>
         {/* Bouton de sélection de preset */}
         <TouchableOpacity
-          style={styles.presetButton}
+          style={themedStyles.presetButton}
           onPress={() => setModalVisible(true)}
         >
-          <Text style={styles.presetButtonText}>
+          <Text style={themedStyles.presetButtonText}>
             {currentPreset ? 
               presets.find(p => p.id === currentPreset)?.name || 'Personnalisé' 
               : 'Sélectionner'
@@ -115,19 +124,19 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({
 
         {/* Bouton Reset */}
         <TouchableOpacity
-          style={styles.resetButton}
+          style={themedStyles.resetButton}
           onPress={onResetToFlat}
         >
-          <Text style={styles.resetButtonText}>Reset</Text>
+          <Text style={themedStyles.resetButtonText}>Reset</Text>
         </TouchableOpacity>
 
         {/* Bouton Sauvegarder */}
         {onSavePreset && (
           <TouchableOpacity
-            style={styles.saveButton}
+            style={themedStyles.saveButton}
             onPress={handleSavePreset}
           >
-            <Text style={styles.saveButtonText}>Sauver</Text>
+            <Text style={themedStyles.saveButtonText}>Sauver</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -139,15 +148,15 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Sélectionner un Preset</Text>
+        <View style={themedStyles.modalOverlay}>
+          <View style={themedStyles.modalContent}>
+            <View style={themedStyles.modalHeader}>
+              <Text style={themedStyles.modalTitle}>Sélectionner un Preset</Text>
               <TouchableOpacity
-                style={styles.closeButton}
+                style={themedStyles.closeButton}
                 onPress={() => setModalVisible(false)}
               >
-                <Text style={styles.closeButtonText}>✕</Text>
+                <Text style={themedStyles.closeButtonText}>✕</Text>
               </TouchableOpacity>
             </View>
 
@@ -155,7 +164,7 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({
               data={presets}
               renderItem={renderPresetItem}
               keyExtractor={(item) => item.id}
-              style={styles.presetsList}
+              style={themedStyles.presetsList}
               showsVerticalScrollIndicator={false}
             />
           </View>
@@ -165,14 +174,14 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (audioTheme: ReturnType<typeof useAudioTheme>) => StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
-    marginHorizontal: 16,
-    marginVertical: 8,
-    shadowColor: '#000',
+    backgroundColor: audioTheme.colors.moduleBackground,
+    borderRadius: audioTheme.spacing.md,
+    padding: audioTheme.spacing.md,
+    marginHorizontal: audioTheme.spacing.md,
+    marginVertical: audioTheme.spacing.sm,
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -182,51 +191,51 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 16,
+    fontSize: audioTheme.typography.moduleTitle.fontSize,
+    fontWeight: audioTheme.typography.moduleTitle.fontWeight,
+    color: audioTheme.colors.text,
+    marginBottom: audioTheme.spacing.md,
   },
   buttonsRow: {
     flexDirection: 'row',
-    gap: 12,
+    gap: audioTheme.spacing.sm,
   },
   presetButton: {
     flex: 1,
-    backgroundColor: '#2196F3',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+    backgroundColor: audioTheme.colors.rmsNormal,
+    paddingVertical: audioTheme.spacing.sm,
+    paddingHorizontal: audioTheme.spacing.md,
+    borderRadius: audioTheme.spacing.sm,
     alignItems: 'center',
   },
   presetButtonText: {
     color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: audioTheme.typography.parameterLabel.fontSize,
+    fontWeight: audioTheme.typography.moduleTitle.fontWeight,
   },
   resetButton: {
-    backgroundColor: '#FF5722',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+    backgroundColor: audioTheme.colors.rmsAlert,
+    paddingVertical: audioTheme.spacing.sm,
+    paddingHorizontal: audioTheme.spacing.md,
+    borderRadius: audioTheme.spacing.sm,
     alignItems: 'center',
   },
   resetButtonText: {
     color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: audioTheme.typography.parameterLabel.fontSize,
+    fontWeight: audioTheme.typography.moduleTitle.fontWeight,
   },
   saveButton: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+    backgroundColor: audioTheme.colors.rmsNormal,
+    paddingVertical: audioTheme.spacing.sm,
+    paddingHorizontal: audioTheme.spacing.md,
+    borderRadius: audioTheme.spacing.sm,
     alignItems: 'center',
   },
   saveButtonText: {
     color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: audioTheme.typography.parameterLabel.fontSize,
+    fontWeight: audioTheme.typography.moduleTitle.fontWeight,
   },
   modalOverlay: {
     flex: 1,
@@ -235,9 +244,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 20,
+    backgroundColor: audioTheme.colors.moduleBackground,
+    borderRadius: audioTheme.spacing.lg,
+    padding: audioTheme.spacing.lg,
     width: '90%',
     maxHeight: '70%',
   },
@@ -245,19 +254,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: audioTheme.spacing.lg,
   },
   modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    fontSize: audioTheme.typography.moduleTitle.fontSize,
+    fontWeight: audioTheme.typography.moduleTitle.fontWeight,
+    color: audioTheme.colors.text,
   },
   closeButton: {
-    padding: 4,
+    padding: audioTheme.spacing.xs,
   },
   closeButtonText: {
-    fontSize: 18,
-    color: '#666',
+    fontSize: audioTheme.typography.moduleTitle.fontSize,
+    color: audioTheme.colors.text,
+    opacity: 0.7,
   },
   presetsList: {
     maxHeight: 400,
@@ -266,42 +276,44 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 12,
-    marginVertical: 4,
-    borderRadius: 8,
-    backgroundColor: '#F5F5F5',
+    paddingVertical: audioTheme.spacing.md,
+    paddingHorizontal: audioTheme.spacing.sm,
+    marginVertical: audioTheme.spacing.xs,
+    borderRadius: audioTheme.spacing.sm,
+    backgroundColor: audioTheme.colors.moduleBackground,
   },
   presetItemSelected: {
-    backgroundColor: '#E3F2FD',
+    backgroundColor: audioTheme.colors.moduleBackground,
     borderWidth: 2,
-    borderColor: '#2196F3',
+    borderColor: audioTheme.colors.rmsNormal,
   },
   presetInfo: {
     flex: 1,
   },
   presetName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+    fontSize: audioTheme.typography.moduleTitle.fontSize,
+    fontWeight: audioTheme.typography.moduleTitle.fontWeight,
+    color: audioTheme.colors.text,
   },
   presetNameSelected: {
-    color: '#2196F3',
+    color: audioTheme.colors.rmsNormal,
   },
   presetDescription: {
-    fontSize: 12,
-    color: '#666',
-    marginTop: 2,
+    fontSize: audioTheme.typography.parameterLabel.fontSize,
+    color: audioTheme.colors.text,
+    opacity: 0.7,
+    marginTop: audioTheme.spacing.xs,
   },
   presetDescriptionSelected: {
-    color: '#1976D2',
+    color: audioTheme.colors.rmsNormal,
+    opacity: 0.9,
   },
   presetCurve: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     width: 80,
     height: 40,
-    marginLeft: 12,
+    marginLeft: audioTheme.spacing.sm,
   },
   curveBand: {
     flex: 1,

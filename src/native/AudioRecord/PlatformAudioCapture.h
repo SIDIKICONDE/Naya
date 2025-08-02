@@ -210,7 +210,7 @@ public:
     // Détection automatique de plateforme
     enum class Platform {
         IOS,
-        ANDROID, 
+        ANDROID_PLATFORM, 
         WINDOWS,
         LINUX,
         MACOS,

@@ -11,11 +11,11 @@
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9DEB74A52274D4C57E00AD1E /* libPods-Naya.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D9B8E099804B774B1A6BC20 /* libPods-Naya.a */; };
-		AAAA1111AAAA1111AAAA1111 /* ../src/native/AudioRecord/AudioRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB2222BB2222BB2222BB2222 /* ../src/native/AudioRecord/AudioRecorder.cpp */; };
-		BBBB2222BBBB2222BBBB2222 /* ../src/native/AudioRecord/NativeAudioRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4444DD4444DD4444DD4444 /* ../src/native/AudioRecord/NativeAudioRecorder.cpp */; };
+		AAAA1111AAAA1111AAAA1111 /* AudioRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB2222BB2222BB2222BB2222 /* AudioRecorder.cpp */; };
+		BBBB2222BBBB2222BBBB2222 /* NativeAudioRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4444DD4444DD4444DD4444 /* NativeAudioRecorder.cpp */; };
 		C517854342D3A36970F25C13 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		CCCC3333CCCC3333CCCC3333 /* NativeAudioRecorderProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = FF6666FF6666FF6666FF6666 /* NativeAudioRecorderProvider.mm */; };
-		IIII1111IIII1111IIII1111 /* ../src/native/AudioRecord/AudioBufferPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = HHHH1010HHHH1010HHHH1010 /* ../src/native/AudioRecord/AudioBufferPool.cpp */; };
+		IIII1111IIII1111IIII1111 /* AudioBufferPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = HHHH1010HHHH1010HHHH1010 /* AudioBufferPool.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,7 +25,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6FAA36B22E3E292D00C3CBFC /* libpathops.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,17 +42,17 @@
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Naya/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Naya/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A226B278586B013F3279D522 /* Pods-Naya.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naya.release.xcconfig"; path = "Target Support Files/Pods-Naya/Pods-Naya.release.xcconfig"; sourceTree = "<group>"; };
-		AA1111AA1111AA1111AA1111 /* ../src/native/AudioRecord/AudioRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/AudioRecord/AudioRecorder.h; sourceTree = "<group>"; };
-		BB2222BB2222BB2222BB2222 /* ../src/native/AudioRecord/AudioRecorder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/AudioRecord/AudioRecorder.cpp; sourceTree = "<group>"; };
-		CC3333CC3333CC3333CC3333 /* ../src/native/AudioRecord/NativeAudioRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/AudioRecord/NativeAudioRecorder.h; sourceTree = "<group>"; };
-		DD4444DD4444DD4444DD4444 /* ../src/native/AudioRecord/NativeAudioRecorder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/AudioRecord/NativeAudioRecorder.cpp; sourceTree = "<group>"; };
+		AA1111AA1111AA1111AA1111 /* AudioRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/AudioRecord/AudioRecorder.h; sourceTree = "<group>"; };
+		BB2222BB2222BB2222BB2222 /* AudioRecorder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/AudioRecord/AudioRecorder.cpp; sourceTree = "<group>"; };
+		CC3333CC3333CC3333CC3333 /* NativeAudioRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/AudioRecord/NativeAudioRecorder.h; sourceTree = "<group>"; };
+		DD4444DD4444DD4444DD4444 /* NativeAudioRecorder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/AudioRecord/NativeAudioRecorder.cpp; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EE5555EE5555EE5555EE5555 /* NativeAudioRecorderProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeAudioRecorderProvider.h; sourceTree = "<group>"; };
-		EEEE7777EEEE7777EEEE7777 /* ../src/native/AudioRecord/AudioBufferPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/AudioRecord/AudioBufferPool.h; sourceTree = "<group>"; };
+		EEEE7777EEEE7777EEEE7777 /* AudioBufferPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/AudioRecord/AudioBufferPool.h; sourceTree = "<group>"; };
 		FF6666FF6666FF6666FF6666 /* NativeAudioRecorderProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NativeAudioRecorderProvider.mm; sourceTree = "<group>"; };
-		FFFF8888FFFF8888FFFF8888 /* ../src/native/NativeAudioRecorder.H */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/NativeAudioRecorder.H; sourceTree = "<group>"; };
-		GGGG9999GGGG9999GGGG9999 /* ../src/native/AudioRecord/README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ../src/native/AudioRecord/README.md; sourceTree = "<group>"; };
-		HHHH1010HHHH1010HHHH1010 /* ../src/native/AudioRecord/AudioBufferPool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/AudioRecord/AudioBufferPool.cpp; sourceTree = "<group>"; };
+		FFFF8888FFFF8888FFFF8888 /* NativeAudioRecorder.H */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/NativeAudioRecorder.H; sourceTree = "<group>"; };
+		GGGG9999GGGG9999GGGG9999 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ../src/native/AudioRecord/README.md; sourceTree = "<group>"; };
+		HHHH1010HHHH1010HHHH1010 /* AudioBufferPool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/AudioRecord/AudioBufferPool.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +61,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DEB74A52274D4C57E00AD1E /* libPods-Naya.a in Frameworks */,
-				6FAA36B12E3E292D00C3CBFC /* libpathops.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,14 +131,14 @@
 		FFFF0001FFFF0001FFFF0001 /* TurboModules */ = {
 			isa = PBXGroup;
 			children = (
-				FFFF8888FFFF8888FFFF8888 /* ../src/native/NativeAudioRecorder.H */,
-				GGGG9999GGGG9999GGGG9999 /* ../src/native/AudioRecord/README.md */,
-				AA1111AA1111AA1111AA1111 /* ../src/native/AudioRecord/AudioRecorder.h */,
-				BB2222BB2222BB2222BB2222 /* ../src/native/AudioRecord/AudioRecorder.cpp */,
-				EEEE7777EEEE7777EEEE7777 /* ../src/native/AudioRecord/AudioBufferPool.h */,
-				HHHH1010HHHH1010HHHH1010 /* ../src/native/AudioRecord/AudioBufferPool.cpp */,
-				CC3333CC3333CC3333CC3333 /* ../src/native/AudioRecord/NativeAudioRecorder.h */,
-				DD4444DD4444DD4444DD4444 /* ../src/native/AudioRecord/NativeAudioRecorder.cpp */,
+				FFFF8888FFFF8888FFFF8888 /* NativeAudioRecorder.H */,
+				GGGG9999GGGG9999GGGG9999 /* README.md */,
+				AA1111AA1111AA1111AA1111 /* AudioRecorder.h */,
+				BB2222BB2222BB2222BB2222 /* AudioRecorder.cpp */,
+				EEEE7777EEEE7777EEEE7777 /* AudioBufferPool.h */,
+				HHHH1010HHHH1010HHHH1010 /* AudioBufferPool.cpp */,
+				CC3333CC3333CC3333CC3333 /* NativeAudioRecorder.h */,
+				DD4444DD4444DD4444DD4444 /* NativeAudioRecorder.cpp */,
 				EE5555EE5555EE5555EE5555 /* NativeAudioRecorderProvider.h */,
 				FF6666FF6666FF6666FF6666 /* NativeAudioRecorderProvider.mm */,
 			);
@@ -297,9 +295,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
-				AAAA1111AAAA1111AAAA1111 /* ../src/native/AudioRecord/AudioRecorder.cpp in Sources */,
-				IIII1111IIII1111IIII1111 /* ../src/native/AudioRecord/AudioBufferPool.cpp in Sources */,
-				BBBB2222BBBB2222BBBB2222 /* ../src/native/AudioRecord/NativeAudioRecorder.cpp in Sources */,
+				AAAA1111AAAA1111AAAA1111 /* AudioRecorder.cpp in Sources */,
+				IIII1111IIII1111IIII1111 /* AudioBufferPool.cpp in Sources */,
+				BBBB2222BBBB2222BBBB2222 /* NativeAudioRecorder.cpp in Sources */,
 				CCCC3333CCCC3333CCCC3333 /* NativeAudioRecorderProvider.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,7 +456,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -527,7 +528,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

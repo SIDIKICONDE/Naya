@@ -14,8 +14,17 @@
  *   recorder->Initialize(factory::CreateHiResConfig());
  */
 
-#include <memory>
-#include <string>
+// Inclure les vrais headers du module AudioRecord
+#include "AudioRecord/AudioRecorder.h"
+#include "AudioRecord/AudioStructs.h"
+#include "AudioRecord/AudioCaptureInterface.h"
+#include "AudioRecord/AudioCaptureCpp.h"
+#include "AudioRecord/PlatformAudioCapture.h"
+#include "AudioRecord/AudioEncoderInterface.h"
+#include "AudioRecord/AudioEncoders.h"
+#include "AudioRecord/AudioDSPInterface.h"
+#include "AudioRecord/AudioDSPProcessors.h"
+#include "AudioRecord/AudioBufferPool.h"
 
 // ========================================
 // NAMESPACE PRINCIPAL ET RE-EXPORTS
@@ -24,49 +33,48 @@
 namespace naya::audio {
     
     // Re-export des types principaux pour simplifier l'usage
-    using AudioRecorder = ::audio::AudioRecorder;
-    using AudioConfig = ::audio::AudioConfig;
-    using AudioBuffer = ::audio::AudioBuffer;
-    using RecordingStats = ::audio::RecordingStats;
-    using AudioRecorderCallback = ::audio::AudioRecorderCallback;
+    using AudioRecorder = audio::AudioRecorder;
+    using AudioConfig = audio::AudioConfig;
+    using AudioBuffer = audio::AudioBuffer;
+    using RecordingStats = audio::RecordingStats;
+    using AudioRecorderCallback = audio::AudioRecorderCallback;
     
     // Re-export des interfaces de capture audio
-    using AudioCaptureInterface = ::audio::AudioCaptureInterface;
-    using AudioCaptureCpp = ::audio::AudioCaptureCpp;
-    using AudioCaptureFactory = ::audio::AudioCaptureFactory;
-    using PlatformAudioCaptureFactory = ::audio::PlatformAudioCaptureFactory;
+    using AudioCaptureInterface = audio::AudioCaptureInterface;
+    using AudioCaptureCpp = audio::AudioCaptureCpp;
+    using PlatformAudioCaptureFactory = audio::PlatformAudioCaptureFactory;
     
 #ifdef __APPLE__
-    using iOSAudioCapture = ::audio::iOSAudioCapture;
+    using iOSAudioCapture = audio::iOSAudioCapture;
 #endif
 #ifdef __ANDROID__
-    using AndroidAudioCapture = ::audio::AndroidAudioCapture;
+    using AndroidAudioCapture = audio::AndroidAudioCapture;
 #endif
 #if !defined(__APPLE__) && !defined(__ANDROID__)
-    using DesktopAudioCapture = ::audio::DesktopAudioCapture;
+    using DesktopAudioCapture = audio::DesktopAudioCapture;
 #endif
     
     // Re-export des interfaces d'encodage multi-format
-    using AudioEncoderInterface = ::audio::AudioEncoderInterface;
-    using AudioFormat = ::audio::AudioFormat;
-    using AudioQuality = ::audio::AudioQuality;
-    using EncoderConfig = ::audio::EncoderConfig;
-    using AudioEncoderFactory = ::audio::AudioEncoderFactory;
-    using WAVEncoder = ::audio::WAVEncoder;
-    using UniversalEncoder = ::audio::UniversalEncoder;
+    using AudioEncoderInterface = audio::AudioEncoderInterface;
+    using AudioFormat = audio::AudioFormat;
+    using AudioQuality = audio::AudioQuality;
+    using EncoderConfig = audio::EncoderConfig;
+    using AudioEncoderFactory = audio::AudioEncoderFactory;
+    using WAVEncoder = audio::WAVEncoder;
+    using UniversalEncoder = audio::UniversalEncoder;
     
     // Re-export des interfaces DSP temps réel
-    using AudioDSPProcessor = ::audio::dsp::AudioDSPProcessor;
-    using AudioDSPPipeline = ::audio::dsp::AudioDSPPipeline;
-    using AudioDSPFactory = ::audio::dsp::AudioDSPFactory;
-    using EffectType = ::audio::dsp::EffectType;
-    using DSPParameter = ::audio::dsp::DSPParameter;
-    using DSPPreset = ::audio::dsp::DSPPreset;
-    using ParametricEqualizer = ::audio::dsp::ParametricEqualizer;
-    using BiquadFilter = ::audio::dsp::BiquadFilter;
+    using AudioDSPProcessor = audio::dsp::AudioDSPProcessor;
+    using AudioDSPPipeline = audio::dsp::AudioDSPPipeline;
+    using AudioDSPFactory = audio::dsp::AudioDSPFactory;
+    using EffectType = audio::dsp::EffectType;
+    using DSPParameter = audio::dsp::DSPParameter;
+    using DSPPreset = audio::dsp::DSPPreset;
+    using ParametricEqualizer = audio::dsp::ParametricEqualizer;
+    using BiquadFilter = audio::dsp::BiquadFilter;
     
     // Re-export des optimisations mémoire
-    using AudioBufferPool = ::facebook::react::AudioBufferPool;
+    using AudioBufferPool = audio::AudioBufferPool;
     
     // ========================================
     // FACTORY FUNCTIONS SIMPLIFIÉES
@@ -79,7 +87,7 @@ namespace naya::audio {
          * @return Instance unique_ptr avec gestion RAII automatique
          */
         inline std::unique_ptr<AudioRecorder> CreateRecorder() {
-            return ::audio::AudioRecorderFactory::CreateRecorder();
+            return std::make_unique<AudioRecorder>();
         }
         
         /**
@@ -90,30 +98,28 @@ namespace naya::audio {
                 .sample_rate = 44100,
                 .channels = 2,
                 .bit_depth = 16,
-                .buffer_size = 4096
+                .buffer_size = 1024
             };
         }
         
         /**
-         * Configuration Hi-Res Audio (88.2kHz, 32-bit, Stéréo)
-         * Qualité studio professionnelle
+         * Configuration Hi-Res Audio (96kHz, 24-bit, Stéréo)
          */
         inline AudioConfig CreateHiResConfig() {
             return AudioConfig{
-                .sample_rate = 88200,
+                .sample_rate = 96000,
                 .channels = 2,
-                .bit_depth = 32,
-                .buffer_size = 8192
+                .bit_depth = 24,
+                .buffer_size = 512
             };
         }
         
         /**
-         * Configuration optimisée voix (16kHz, 16-bit, Mono)
-         * Idéale pour podcasts et communications
+         * Configuration podcast/voix (44.1kHz, 16-bit, Mono)
          */
         inline AudioConfig CreateVoiceConfig() {
             return AudioConfig{
-                .sample_rate = 16000,
+                .sample_rate = 44100,
                 .channels = 1,
                 .bit_depth = 16,
                 .buffer_size = 2048
@@ -121,292 +127,177 @@ namespace naya::audio {
         }
         
         /**
-         * Configuration personnalisée avec validation
-         * @throws std::invalid_argument si configuration invalide
+         * Configuration studio (48kHz, 24-bit, Stéréo)
          */
-        inline AudioConfig CreateCustomConfig(uint32_t sample_rate, 
-                                            uint16_t channels, 
-                                            uint16_t bit_depth) {
-            AudioConfig config{
-                .sample_rate = sample_rate,
-                .channels = channels,
-                .bit_depth = bit_depth,
-                .buffer_size = 4096
+        inline AudioConfig CreateStudioConfig() {
+            return AudioConfig{
+                .sample_rate = 48000,
+                .channels = 2,
+                .bit_depth = 24,
+                .buffer_size = 256
             };
-            
-            if (!config.IsValidSampleRate()) {
-                throw std::invalid_argument("Taux d'échantillonnage non supporté: " 
-                                          + std::to_string(sample_rate));
-            }
-            if (!config.IsValidBitDepth()) {
-                throw std::invalid_argument("Profondeur de bits non supportée: " 
-                                          + std::to_string(bit_depth));
-            }
-            if (!config.IsValidChannels()) {
-                throw std::invalid_argument("Nombre de canaux non supporté: " 
-                                          + std::to_string(channels));
-            }
-            
-            return config;
         }
         
-        /**
-         * Crée une instance de capture audio platform-agnostic
-         * @return Instance unique_ptr de AudioCaptureInterface
-         */
-        inline std::unique_ptr<AudioCaptureInterface> CreateAudioCapture() {
-            return AudioCaptureFactory::CreatePlatformCapture();
-        }
-        
-        /**
-         * Vérifie si la capture audio est disponible
-         * @return true si la capture est supportée sur cette plateforme
-         */
-        inline bool IsAudioCaptureAvailable() {
-            return AudioCaptureFactory::IsCaptureAvailable();
-        }
-        
-        /**
-         * Obtient les capacités de capture de la plateforme
-         * @return Structure décrivant les capacités audio
-         */
-        inline AudioCaptureFactory::PlatformCapabilities GetAudioCapabilities() {
-            return AudioCaptureFactory::GetCapabilities();
-        }
-        
-        /**
-         * Crée une instance de capture audio native optimisée pour la plateforme
-         * @return Instance native (iOS/Android/Desktop)
-         */
-        inline std::unique_ptr<AudioCaptureInterface> CreateNativeAudioCapture() {
-            return PlatformAudioCaptureFactory::CreateNativeCapture();
-        }
-        
-        /**
-         * Obtient le nom de la plateforme détectée
-         * @return Nom de la plateforme ("iOS", "Android", "Desktop")
-         */
-        inline std::string GetPlatformName() {
-            return PlatformAudioCaptureFactory::GetPlatformName();
-        }
-        
-        /**
-         * Vérifie si la capture native est disponible sur cette plateforme
-         * @return true si la capture native est supportée
-         */
-        inline bool IsNativeAudioCaptureAvailable() {
-            return PlatformAudioCaptureFactory::IsNativeCaptureAvailable();
-        }
-        
-        /**
-         * Obtient les capacités natives de la plateforme
-         * @return Capacités spécifiques à la plateforme actuelle
-         */
-        inline AudioCaptureFactory::PlatformCapabilities GetNativeAudioCapabilities() {
-            return PlatformAudioCaptureFactory::GetNativeCapabilities();
-        }
-        
-        /**
-         * Obtient la latence typique de capture pour cette plateforme
-         * @return Latence en millisecondes
-         */
-        inline float GetPlatformAudioLatency() {
-            return PlatformAudioCaptureFactory::GetPlatformLatency();
-        }
-        
-        /**
-         * Vérifie les permissions audio (mobiles)
-         * @return true si les permissions sont accordées
-         */
-        inline bool CheckAudioPermissions() {
-            return PlatformAudioCaptureFactory::CheckAudioPermissions();
-        }
-        
-        /**
-         * Demande les permissions audio (mobiles)
-         * @return true si accordées ou déjà présentes
-         */
-        inline bool RequestAudioPermissions() {
-            return PlatformAudioCaptureFactory::RequestAudioPermissions();
-        }
-        
-        /**
-         * Crée un encodeur pour le format spécifié
-         * @param format Format audio désiré (WAV, FLAC, OGG, AAC)
-         * @return Instance unique_ptr de l'encodeur
-         */
-        inline std::unique_ptr<AudioEncoderInterface> CreateEncoder(AudioFormat format = AudioFormat::WAV) {
-            return AudioEncoderFactory::CreateEncoder(format);
-        }
-        
-        /**
-         * Crée un encodeur universel avec fallback automatique
-         * @param preferred_format Format préféré
-         * @return Encodeur universel qui gère les fallbacks
-         */
-        inline std::unique_ptr<UniversalEncoder> CreateUniversalEncoder(AudioFormat preferred_format = AudioFormat::WAV) {
-            return std::make_unique<UniversalEncoder>(preferred_format);
-        }
-        
-        /**
-         * Obtient les formats d'encodage supportés
-         * @return Vector des formats disponibles
-         */
-        inline std::vector<AudioFormat> GetSupportedFormats() {
-            return AudioEncoderFactory::GetSupportedFormats();
-        }
-        
-        /**
-         * Crée une configuration d'encodage optimisée
-         * @param format Format désiré
-         * @param usage Type d'usage ("music", "voice", "podcast", "archive")
-         * @return Configuration optimisée pour l'usage
-         */
-        inline EncoderConfig CreateEncoderConfig(AudioFormat format, const std::string& usage = "music") {
-            return AudioEncoderFactory::CreateOptimizedConfig(format, usage);
-        }
-        
-        /**
-         * Détecte le format audio à partir de l'extension de fichier
-         * @param filename Nom ou chemin du fichier
-         * @return Format détecté
-         */
-        inline AudioFormat DetectFormatFromFilename(const std::string& filename) {
-            return ::audio::format_utils::DetectFormatFromFilename(filename);
-        }
-        
-        /**
-         * Estime la taille de fichier pour une configuration donnée
-         * @param audio_config Configuration audio
-         * @param encoder_config Configuration d'encodage
-         * @param duration_seconds Durée estimée
-         * @return Taille estimée en octets
-         */
-        inline size_t EstimateFileSize(const AudioConfig& audio_config, 
-                                     const EncoderConfig& encoder_config, 
-                                     double duration_seconds) {
-            return AudioEncoderInterface::EstimateFileSize(audio_config, encoder_config, duration_seconds);
-        }
-        
-        /**
-         * Crée un processeur DSP pour l'effet spécifié
-         * @param type Type d'effet (EQ, compresseur, reverb, etc.)
-         * @return Instance unique_ptr du processeur
-         */
-        inline std::unique_ptr<AudioDSPProcessor> CreateDSPProcessor(EffectType type) {
-            return AudioDSPFactory::CreateProcessor(type);
-        }
-        
-        /**
-         * Crée un pipeline DSP vide
-         * @return Pipeline prêt à recevoir des effets
-         */
-        inline std::unique_ptr<AudioDSPPipeline> CreateDSPPipeline() {
-            return std::make_unique<AudioDSPPipeline>();
-        }
-        
-        /**
-         * Crée un pipeline DSP avec preset prédéfini
-         * @param preset_name Nom du preset ("Voice Processing", "Music Master", etc.)
-         * @return Pipeline configuré avec les effets appropriés
-         */
-        inline std::unique_ptr<AudioDSPPipeline> CreateDSPPipelinePreset(const std::string& preset_name) {
-            return AudioDSPFactory::CreatePipelinePreset(preset_name);
-        }
-        
-        /**
-         * Obtient les types d'effets DSP supportés
-         * @return Vector des types d'effets disponibles
-         */
-        inline std::vector<EffectType> GetSupportedDSPEffects() {
-            return AudioDSPFactory::GetSupportedEffects();
-        }
-        
-        /**
-         * Obtient les presets de pipeline DSP disponibles
-         * @return Vector des noms de presets
-         */
-        inline std::vector<std::string> GetDSPPipelinePresets() {
-            return AudioDSPFactory::GetAvailablePipelinePresets();
-        }
-        
-        /**
-         * Crée un égaliseur paramétrique prêt à utiliser
-         * @return Instance d'égaliseur 10 bandes
-         */
-        inline std::unique_ptr<ParametricEqualizer> CreateParametricEQ() {
-            return std::make_unique<ParametricEqualizer>();
-        }
-        
-        /**
-         * Obtient le nom lisible d'un type d'effet
-         * @param type Type d'effet
-         * @return Nom descriptif
-         */
-        inline std::string GetEffectTypeName(EffectType type) {
-            return AudioDSPFactory::GetEffectTypeName(type);
-        }
-        
-        /**
-         * Vérifie si un effet DSP est supporté
-         * @param type Type d'effet à vérifier
-         * @return true si supporté
-         */
-        inline bool IsDSPEffectSupported(EffectType type) {
-            return AudioDSPFactory::IsEffectSupported(type);
-        }
-    }
+    } // namespace factory
     
     // ========================================
-    // CONSTANTES UTILES
+    // UTILITAIRES DE DIAGNOSTIC SYSTÈME
     // ========================================
     
-    namespace constants {
-        // Limites système
-        constexpr size_t kMaxBufferSize = 16384;
-        constexpr size_t kMinBufferSize = 512;
-        constexpr uint32_t kMaxSampleRate = 88200;
+    namespace diagnostics {
         
-        // Formats supportés
-        constexpr const char* kFormatWAV = "wav";
-        constexpr const char* kFormatPCM = "pcm";
+        /**
+         * Informations système sur l'audio
+         */
+        struct AudioSystemInfo {
+            bool is_available = false;
+            std::string platform_name;
+            std::vector<uint32_t> supported_sample_rates;
+            std::vector<uint16_t> supported_bit_depths;
+            size_t max_channels = 0;
+            size_t min_buffer_size = 0;
+            size_t max_buffer_size = 0;
+        };
         
-        // Tailles recommandées
-        constexpr size_t kDefaultPoolSize = 20;
-        constexpr size_t kDefaultBufferSize = 4096;
-    }
-}
+        /**
+         * Obtient les capacités audio du système
+         */
+        inline AudioSystemInfo GetSystemAudioInfo() {
+            AudioSystemInfo info;
+            
+#ifdef __APPLE__
+            info.platform_name = "iOS/macOS";
+            info.is_available = true;
+            info.supported_sample_rates = {8000, 16000, 22050, 44100, 48000, 88200, 96000};
+            info.supported_bit_depths = {16, 24, 32};
+            info.max_channels = 8;
+            info.min_buffer_size = 64;
+            info.max_buffer_size = 8192;
+#elif defined(__ANDROID__)
+            info.platform_name = "Android";
+            info.is_available = true;
+            info.supported_sample_rates = {8000, 16000, 22050, 44100, 48000};
+            info.supported_bit_depths = {16, 24};
+            info.max_channels = 2;
+            info.min_buffer_size = 256;
+            info.max_buffer_size = 4096;
+#else
+            info.platform_name = "Desktop";
+            info.is_available = false; // Non implémenté pour desktop dans cette version
+#endif
+            
+            return info;
+        }
+        
+        /**
+         * Vérifie si une configuration audio est supportée
+         */
+        inline bool IsConfigurationSupported(const AudioConfig& config) {
+            auto system_info = GetSystemAudioInfo();
+            
+            if (!system_info.is_available) return false;
+            
+            // Vérifier le taux d'échantillonnage
+            auto rates = system_info.supported_sample_rates;
+            if (std::find(rates.begin(), rates.end(), config.sample_rate) == rates.end()) {
+                return false;
+            }
+            
+            // Vérifier la profondeur de bits
+            auto depths = system_info.supported_bit_depths;
+            if (std::find(depths.begin(), depths.end(), config.bit_depth) == depths.end()) {
+                return false;
+            }
+            
+            // Vérifier le nombre de canaux
+            if (config.channels > system_info.max_channels) {
+                return false;
+            }
+            
+            // Vérifier la taille du buffer
+            if (config.buffer_size < system_info.min_buffer_size || 
+                config.buffer_size > system_info.max_buffer_size) {
+                return false;
+            }
+            
+            return true;
+        }
+        
+    } // namespace diagnostics
+    
+    // ========================================
+    // GESTION D'ERREURS SPÉCIALISÉE
+    // ========================================
+    
+    namespace errors {
+        
+        enum class AudioErrorCode {
+            SUCCESS = 0,
+            INITIALIZATION_FAILED,
+            INVALID_CONFIGURATION,
+            DEVICE_NOT_AVAILABLE,
+            PERMISSION_DENIED,
+            BUFFER_OVERFLOW,
+            ENCODING_ERROR,
+            FILE_IO_ERROR,
+            UNKNOWN_ERROR
+        };
+        
+        struct AudioError {
+            AudioErrorCode code;
+            std::string message;
+            std::string context;
+            
+            AudioError(AudioErrorCode c, const std::string& msg, const std::string& ctx = "")
+                : code(c), message(msg), context(ctx) {}
+        };
+        
+        inline std::string GetErrorMessage(AudioErrorCode code) {
+            switch (code) {
+                case AudioErrorCode::SUCCESS:
+                    return "Opération réussie";
+                case AudioErrorCode::INITIALIZATION_FAILED:
+                    return "Échec de l'initialisation du système audio";
+                case AudioErrorCode::INVALID_CONFIGURATION:
+                    return "Configuration audio invalide";
+                case AudioErrorCode::DEVICE_NOT_AVAILABLE:
+                    return "Périphérique audio non disponible";
+                case AudioErrorCode::PERMISSION_DENIED:
+                    return "Permission d'accès au microphone refusée";
+                case AudioErrorCode::BUFFER_OVERFLOW:
+                    return "Débordement du buffer audio";
+                case AudioErrorCode::ENCODING_ERROR:
+                    return "Erreur lors de l'encodage audio";
+                case AudioErrorCode::FILE_IO_ERROR:
+                    return "Erreur d'écriture du fichier audio";
+                case AudioErrorCode::UNKNOWN_ERROR:
+                default:
+                    return "Erreur inconnue";
+            }
+        }
+        
+    } // namespace errors
+    
+} // namespace naya::audio
 
 // ========================================
-// INCLUDES DÉTAILLÉS
+// MACROS DE COMMODITÉ POUR LE DEBUG
 // ========================================
 
-// Core audio engine - Moteur principal d'enregistrement
-#include "AudioRecord/AudioRecorder.h"
+#ifdef DEBUG
+    #define NAYA_AUDIO_LOG(msg) \
+        std::cout << "[NayaAudio] " << msg << std::endl
+    #define NAYA_AUDIO_ERROR(msg) \
+        std::cerr << "[NayaAudio ERROR] " << msg << std::endl
+#else
+    #define NAYA_AUDIO_LOG(msg) ((void)0)
+    #define NAYA_AUDIO_ERROR(msg) ((void)0)
+#endif
 
-// Interface de capture audio cross-platform
-#include "AudioRecord/AudioCaptureInterface.h"
-
-// Implémentation C++ pure de la capture audio
-#include "AudioRecord/AudioCaptureCpp.h"
-
-// Capture audio native platform-specific (iOS/Android/Desktop)
-#include "AudioRecord/PlatformAudioCapture.h"
-
-// Interface d'encodage multi-format
-#include "AudioRecord/AudioEncoderInterface.h"
-
-// Implémentations des encodeurs (WAV, FLAC, OGG, AAC)
-#include "AudioRecord/AudioEncoders.h"
-
-// Interface DSP temps réel
-#include "AudioRecord/AudioDSPInterface.h"
-
-// Processeurs DSP (EQ, compresseur, reverb, etc.)
-#include "AudioRecord/AudioDSPProcessors.h"
-
-// Optimisations mémoire - Pools de buffers performants
-#include "AudioRecord/AudioBufferPool.h"
-
-// TurboModule wrapper - Interface React Native JSI
-#include "AudioRecord/NativeAudioRecorder.h"
+#define NAYA_AUDIO_ASSERT(condition, message) \
+    do { \
+        if (!(condition)) { \
+            NAYA_AUDIO_ERROR("Assertion failed: " << message); \
+            throw std::runtime_error("Assertion failed: " + std::string(message)); \
+        } \
+    } while(0)

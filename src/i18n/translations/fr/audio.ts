@@ -4,332 +4,421 @@
  */
 
 export default {
-  // Modules audio
-  modules: {
-    reverb: 'Réverbération',
-    compressor: 'Compresseur',
-    limiter: 'Limiteur',
-    gate: 'Gate',
-    equalizer: 'Égaliseur',
-    delay: 'Délai',
-    chorus: 'Chorus',
-    flanger: 'Flanger',
-    phaser: 'Phaser',
-    distortion: 'Distorsion',
-    overdrive: 'Overdrive',
-    filter: 'Filtre',
-    oscillator: 'Oscillateur',
-    amplifier: 'Amplificateur',
-    mixer: 'Mixeur',
-    recorder: 'Enregistreur',
-    player: 'Lecteur',
-    analyzer: 'Analyseur',
-    tuner: 'Accordeur',
-    metronome: 'Métronome',
-  },
-
-  // Paramètres audio
-  parameters: {
-    // Paramètres généraux
-    gain: 'Gain',
-    volume: 'Volume',
-    level: 'Niveau',
-    output: 'Sortie',
-    input: 'Entrée',
-    mix: 'Mix',
-    wetDry: 'Wet/Dry',
-    bypass: 'Bypass',
-    mute: 'Muet',
-    solo: 'Solo',
-    pan: 'Panoramique',
-    balance: 'Balance',
-    
-    // Fréquences
-    frequency: 'Fréquence',
-    pitch: 'Hauteur',
-    tune: 'Accord',
-    detune: 'Désaccord',
-    transpose: 'Transposition',
-    lowFreq: 'Basses fréquences',
-    midFreq: 'Fréquences moyennes',
-    highFreq: 'Hautes fréquences',
-    cutoff: 'Fréquence de coupure',
-    resonance: 'Résonance',
-    bandwidth: 'Largeur de bande',
-    qFactor: 'Facteur Q',
-    
-    // Temps et modulation
-    time: 'Temps',
-    tempo: 'Tempo',
-    bpm: 'BPM',
-    rate: 'Taux',
-    speed: 'Vitesse',
-    delay: 'Délai',
-    feedback: 'Retour',
-    decay: 'Déclin',
-    sustain: 'Sustain',
-    release: 'Relâchement',
-    attack: 'Attaque',
-    hold: 'Maintien',
-    
-    // Dynamique
-    threshold: 'Seuil',
-    ratio: 'Ratio',
-    kneeWidth: 'Largeur du coude',
-    makeup: 'Gain de compensation',
-    reduction: 'Réduction',
-    compression: 'Compression',
-    expansion: 'Expansion',
-    limiting: 'Limitation',
-    gating: 'Gate',
-    
-    // Effets spatiaux
-    roomSize: 'Taille de la pièce',
-    damping: 'Amortissement',
-    diffusion: 'Diffusion',
-    reflection: 'Réflexion',
-    earlyReflections: 'Réflexions précoces',
-    lateReflections: 'Réflexions tardives',
-    predelay: 'Pré-délai',
-    width: 'Largeur',
-    depth: 'Profondeur',
-    stereoWidth: 'Largeur stéréo',
-    
-    // Modulation
-    lfoRate: 'Taux LFO',
-    lfoDepth: 'Profondeur LFO',
-    modulation: 'Modulation',
-    vibrato: 'Vibrato',
-    tremolo: 'Trémolo',
-    envelope: 'Enveloppe',
-    adsr: 'ADSR',
-    
-    // Qualité et format
-    sampleRate: 'Fréquence d\'échantillonnage',
-    bitDepth: 'Profondeur de bits',
-    quality: 'Qualité',
-    resolution: 'Résolution',
-    precision: 'Précision',
-  },
-
-  // Presets et configurations
-  presets: {
-    load: 'Charger un preset',
-    save: 'Sauvegarder le preset',
-    delete: 'Supprimer le preset',
-    rename: 'Renommer le preset',
-    create: 'Créer un preset',
-    duplicate: 'Dupliquer le preset',
-    export: 'Exporter le preset',
-    import: 'Importer un preset',
-    reset: 'Réinitialiser',
-    default: 'Par défaut',
-    custom: 'Personnalisé',
-    factory: 'Usine',
-    user: 'Utilisateur',
-    recent: 'Récent',
-    favorite: 'Favori',
-    category: 'Catégorie',
-    
-    // Catégories de presets
-    categories: {
-      vocal: 'Vocal',
-      instrument: 'Instrument',
-      drums: 'Batterie',
-      bass: 'Basse',
-      guitar: 'Guitare',
-      piano: 'Piano',
-      strings: 'Cordes',
-      brass: 'Cuivres',
-      woodwinds: 'Bois',
-      electronic: 'Électronique',
-      ambient: 'Ambiant',
-      rock: 'Rock',
-      pop: 'Pop',
-      jazz: 'Jazz',
-      classical: 'Classique',
-      experimental: 'Expérimental',
+  
+  // Interface principale
+  interface: {
+    title: 'Interface Pro',
+    metrics: {
+      cpu: 'CPU',
+      buffer: 'BUF',
+      latency: 'LAT',
+      units: {
+        ms: 'ms',
+        percent: '%',
+      },
+    },
+    status: {
+      initializing: 'Initialisation en cours...',
+      unavailable: 'Interface audio non disponible',
+      moduleError: 'Erreur de chargement du module',
+    },
+    actions: {
+      presets: 'Presets',
+      close: '✕',
     },
   },
 
-  // Interface de contrôle
-  interface: {
-    // Transport
-    record: 'Enregistrer',
-    play: 'Lecture',
-    pause: 'Pause',
-    stop: 'Arrêter',
-    rewind: 'Retour rapide',
-    fastForward: 'Avance rapide',
-    loop: 'Boucle',
-    shuffle: 'Aléatoire',
-    repeat: 'Répéter',
-    
-    // Navigation
-    previous: 'Précédent',
-    next: 'Suivant',
-    first: 'Premier',
-    last: 'Dernier',
-    goto: 'Aller à',
-    position: 'Position',
-    marker: 'Marqueur',
-    bookmark: 'Signet',
-    
-    // Édition
-    cut: 'Couper',
-    copy: 'Copier',
-    paste: 'Coller',
-    delete: 'Supprimer',
-    insert: 'Insérer',
-    replace: 'Remplacer',
-    trim: 'Rogner',
-    split: 'Diviser',
-    merge: 'Fusionner',
-    reverse: 'Inverser',
-    normalize: 'Normaliser',
-    fadeIn: 'Fondu d\'entrée',
-    fadeOut: 'Fondu de sortie',
-    crossfade: 'Fondu enchaîné',
-    
-    // Vue et affichage
-    waveform: 'Forme d\'onde',
-    spectrum: 'Spectre',
-    meter: 'VU-mètre',
-    oscilloscope: 'Oscilloscope',
-    zoom: 'Zoom',
-    zoomIn: 'Zoom avant',
-    zoomOut: 'Zoom arrière',
-    zoomFit: 'Ajuster à la fenêtre',
-    fullscreen: 'Plein écran',
-    
-    // Configuration
-    settings: 'Paramètres',
-    preferences: 'Préférences',
-    options: 'Options',
-    configuration: 'Configuration',
-    setup: 'Configuration',
-    calibration: 'Calibrage',
-    
-    // Status et monitoring
-    status: 'État',
-    monitor: 'Monitoring',
-    peak: 'Crête',
-    rms: 'RMS',
-    clip: 'Écrêtage',
-    overload: 'Surcharge',
-    signal: 'Signal',
-    noise: 'Bruit',
-    snr: 'Rapport S/B',
-    thd: 'THD',
-    latency: 'Latence',
-    jitter: 'Gigue',
-    
-    // Connexions et routing
-    input: 'Entrée',
-    output: 'Sortie',
-    channel: 'Canal',
-    bus: 'Bus',
-    aux: 'Auxiliaire',
-    send: 'Envoi',
-    return: 'Retour',
-    insertFx: 'Insert FX',
-    sidechain: 'Sidechain',
-    routing: 'Routage',
-    patch: 'Patch',
-    connection: 'Connexion',
-    
-    // Effets et traitement
-    effect: 'Effet',
-    plugin: 'Plugin',
-    processor: 'Processeur',
-    algorithm: 'Algorithme',
-    engine: 'Moteur',
-    dsp: 'DSP',
-    realtime: 'Temps réel',
-    offline: 'Hors ligne',
-    render: 'Rendu',
-    bounce: 'Bounce',
+  // Gestionnaire de presets
+  presetManager: {
+    title: '🎛️ Gestionnaire de Presets',
+    actions: {
+      save: 'Sauvegarder',
+      import: 'Importer',
+      load: 'Charger',
+      delete: 'Supprimer',
+    },
+    categories: {
+      all: 'Tous',
+      favorites: '⭐ Favoris',
+      user: '👤 Utilisateur',
+      factory: '🏭 Usine',
+      recent: '🕒 Récents',
+    },
+    emptyState: {
+      title: 'Aucun preset',
+      description: 'Créez ou importez des presets pour commencer',
+    },
+    saveModal: {
+      title: 'Sauvegarder le preset',
+      nameLabel: 'Nom du preset',
+      categoryLabel: 'Catégorie',
+      cancel: 'Annuler',
+      confirm: 'Sauvegarder',
+    },
+    messages: {
+      deleteConfirm: 'Êtes-vous sûr de vouloir supprimer ce preset ?',
+      saveSuccess: 'Preset sauvegardé avec succès',
+      deleteSuccess: 'Preset supprimé avec succès',
+      error: 'Une erreur est survenue',
+    },
   },
 
-  // Messages et erreurs spécifiques à l'audio
-  messages: {
-    // Succès
-    presetSaved: 'Preset sauvegardé avec succès',
-    presetLoaded: 'Preset chargé avec succès',
-    recordingStarted: 'Enregistrement démarré',
-    recordingStopped: 'Enregistrement arrêté',
-    fileExported: 'Fichier exporté avec succès',
-    fileImported: 'Fichier importé avec succès',
-    
-    // Erreurs
-    audioInitError: 'Erreur d\'initialisation audio',
-    deviceNotFound: 'Périphérique audio non trouvé',
-    formatNotSupported: 'Format non supporté',
-    insufficientMemory: 'Mémoire insuffisante',
-    processingError: 'Erreur de traitement',
-    recordingError: 'Erreur d\'enregistrement',
-    playbackError: 'Erreur de lecture',
-    presetLoadError: 'Erreur de chargement du preset',
-    presetSaveError: 'Erreur de sauvegarde du preset',
-    fileCorrupted: 'Fichier corrompu',
-    permissionDenied: 'Permission refusée',
-    deviceBusy: 'Périphérique occupé',
-    bufferUnderrun: 'Sous-dépassement de tampon',
-    bufferOverrun: 'Dépassement de tampon',
-    
-    // Avertissements
-    highLatency: 'Latence élevée détectée',
-    lowMemory: 'Mémoire faible',
-    cpuOverload: 'Surcharge CPU',
-    clippingDetected: 'Écrêtage détecté',
-    noSignal: 'Aucun signal détecté',
-    weakSignal: 'Signal faible',
-    
-    // Informations
-    analysisComplete: 'Analyse terminée',
-    calibrationComplete: 'Calibrage terminé',
-    optimizationComplete: 'Optimisation terminée',
-    ready: 'Prêt',
-    standby: 'En veille',
-    processing: 'Traitement en cours',
-    rendering: 'Rendu en cours',
-    loading: 'Chargement',
-    scanning: 'Analyse',
-    connecting: 'Connexion',
-    syncing: 'Synchronisation',
+  // Section spécifique à l'égaliseur
+  equalizer: {
+    // Titres et labels
+    title: 'Égaliseur Audio',
+    audioFile: 'Fichier Audio',
+    presets: 'Presets',
+    frequencyResponse: 'Courbe de réponse en fréquence',
+
+    // Actions
+    selectFile: 'Sélectionner un fichier',
+    loading: 'Chargement...',
+    enabled: 'Activé',
+    disabled: 'Désactivé',
+    fileLoaded: 'Chargé',
+    reset: 'Reset',
+    save: 'Sauver',
+    selectPreset: 'Sélectionner',
+    custom: 'Personnalisé',
+
+    // Informations fichier
+    duration: 'Durée',
+    sampleRate: 'Échantillonnage',
+    channels: {
+      title: 'Canaux',
+      mono: 'Mono',
+      stereo: 'Stéréo',
+    },
+    fileSize: 'Taille',
+
+    // Messages
+    errors: {
+      fileSelect: 'Impossible de sélectionner le fichier audio',
+      fileLoad: 'Impossible de charger le fichier audio',
+      bandChange: 'Impossible de modifier la bande de fréquence',
+      toggleEqualizer: 'Impossible de modifier l\'état de l\'égaliseur',
+      presetApply: 'Impossible d\'appliquer le preset',
+    },
+
+    // Presets par défaut
+    defaultPresets: {
+      flat: {
+        name: 'Plat',
+        description: 'Aucune modification',
+      },
+      vocal: {
+        name: 'Voix',
+        description: 'Amélioration des voix',
+      },
+      bassBoost: {
+        name: 'Bass Boost',
+        description: 'Renforcement des basses',
+      },
+      trebleBoost: {
+        name: 'Treble Boost',
+        description: 'Renforcement des aigus',
+      },
+    },
+
+    // Messages du gestionnaire de presets
+    presetManager: {
+      // Messages d'erreur
+      errors: {
+        loadPresets: 'Impossible de charger les presets',
+        savePreset: 'Impossible de sauvegarder le preset',
+        deletePreset: 'Impossible de supprimer le preset',
+        emptyName: 'Veuillez entrer un nom pour le preset',
+        import: 'Impossible d\'importer le preset',
+      },
+      
+      // Messages de succès
+      success: {
+        presetSaved: 'Preset sauvegardé avec succès',
+        presetDeleted: 'Preset supprimé avec succès',
+        presetImported: 'Preset importé avec succès',
+      },
+      
+      // Confirmations
+      confirmations: {
+        deleteTitle: 'Confirmer la suppression',
+        deleteMessage: 'Voulez-vous vraiment supprimer le preset "{{name}}" ?',
+        deleteConfirm: 'Supprimer',
+        deleteCancel: 'Annuler',
+      },
+      
+      // Fonctionnalités
+      features: {
+        importComingSoon: 'Fonctionnalité d\'import en cours de développement',
+        importTitle: 'Import de preset',
+      },
+    },
+
+    // Dialogue de sauvegarde
+    savePreset: {
+      title: 'Sauvegarder le preset',
+      message: 'Voulez-vous sauvegarder la configuration actuelle comme nouveau preset ?',
+      cancel: 'Annuler',
+      confirm: 'Sauvegarder',
+      success: 'Preset sauvegardé !',
+    },
   },
 
-  // Unités audio
-  units: {
-    hz: 'Hz',
-    khz: 'kHz',
-    db: 'dB',
-    dbfs: 'dBFS',
-    dbu: 'dBu',
-    dbv: 'dBV',
-    ms: 'ms',
-    s: 's',
-    samples: 'échantillons',
-    frames: 'trames',
-    beats: 'battements',
-    bars: 'mesures',
-    cents: 'cents',
-    semitones: 'demi-tons',
-    octaves: 'octaves',
-    percent: '%',
-    ratio: 'ratio',
+  // Modules audio
+  modules: {
+    // Chorus
+    chorus: {
+      title: 'Chorus',
+      types: {
+        classic: 'Classic',
+        ensemble: 'Ensemble',
+        vintage: 'Vintage',
+        modern: 'Modern',
+      },
+      controls: {
+        rate: 'Rate',
+        depth: 'Depth',
+        wet: 'Wet',
+        dry: 'Dry',
+        delay: 'Délai',
+        feedback: 'Feedback',
+        voices: 'Voix',
+        spread: 'Spread',
+      },
+      modes: {
+        compact: 'C',
+        compactActive: '✓',
+        advanced: '▶',
+        advancedActive: '▼',
+      },
+    },
+
+    // Limiteur
+    limiter: {
+      title: '🛡️ Limiteur',
+      modes: {
+        compact: 'Compact',
+        compactActive: '✓ Compact',
+        advanced: 'Avancé',
+        advancedActive: '✓ Avancé',
+      },
+      display: {
+        title: 'Choisir un mode d\'affichage',
+        compact: {
+          title: '📱 Compact',
+          description: 'Contrôles essentiels en 2x2',
+        },
+        advanced: {
+          title: '⚙️ Avancé',
+          description: 'Tous contrôles + visualisation',
+        },
+      },
+      controls: {
+        title: 'Contrôles principaux',
+        threshold: 'Seuil',
+        release: 'Release',
+        lookAhead: 'Look-Ah',
+        output: 'Output',
+      },
+    },
+
+    // Gate
+    gate: {
+      title: 'Noise Gate',
+      subtitle: 'Suppression automatique du bruit',
+      modes: {
+        title: 'Mode de fonctionnement',
+        gate: 'Gate',
+        expander: 'Expander',
+      },
+      controls: {
+        threshold: {
+          label: 'Seuil',
+          description: 'Niveau en dessous duquel le gate s\'active',
+        },
+        ratio: {
+          label: 'Ratio',
+          description: 'Intensité de la réduction',
+        },
+        attack: {
+          label: 'Attaque',
+          description: 'Temps d\'ouverture du gate',
+        },
+        hold: {
+          label: 'Maintien',
+          description: 'Durée minimum d\'ouverture',
+        },
+        release: {
+          label: 'Relâchement',
+          description: 'Temps de fermeture du gate',
+        },
+        lookAhead: {
+          label: 'Anticipation',
+          description: 'Délai de prédiction pour transitions fluides',
+        },
+      },
+      status: {
+        title: 'État du gate',
+        open: 'Ouvert',
+      },
+    },
+
+    // Distortion
+    distortion: {
+      title: 'Distorsion',
+      types: {
+        tube: 'Tube',
+        overdrive: 'OD',
+        fuzz: 'Fuzz',
+        bitcrush: 'Bit',
+      },
+      controls: {
+        drive: 'Drive',
+        tone: 'Tone',
+        mix: 'Mix',
+        gain: 'Gain',
+        asymmetry: 'Asymétrie',
+        harmonics: 'Harmoniques',
+        gate: 'Gate',
+      },
+    },
+    // Compresseur
+    compressor: {
+      title: 'Compresseur',
+      
+      // Contrôles
+      controls: {
+        threshold: 'Seuil',
+        ratio: 'Ratio',
+        attack: 'Attaque',
+        release: 'Relâchement',
+        knee: 'Knee',
+        makeupGain: 'Gain de compensation',
+        gainCompact: 'Gain',
+      },
+      
+      // Modes d'affichage
+      modes: {
+        compact: 'Compact',
+        advanced: 'Avancé',
+        compactActive: '✓ Compact',
+        advancedCollapsed: '▶ Avancé',
+        advancedExpanded: '▼ Avancé',
+      },
+      
+      // Section avancée
+      advanced: {
+        title: 'Paramètres avancés',
+        description: 'Les contrôles avancés permettent un réglage fin des paramètres pour des applications spécialisées.',
+      },
+      
+      // VU-mètres et indicateurs
+      meters: {
+        gainReduction: 'GR',
+        inputOutput: 'I/O',
+      },
+      
+      // Presets
+      presets: {
+        title: '🎛️ Presets Professionnels',
+        categories: {
+          vocal: {
+            name: '🎤 Voix Lead',
+            description: 'Voix principale claire',
+          },
+          drums: {
+            name: '🥁 Frappe Batterie',
+            description: 'Percussion dynamique',
+          },
+          master: {
+            name: '🎵 Bus Master',
+            description: 'Mix général cohérent',
+          },
+          bass: {
+            name: '🎸 Contrôle Basse',
+            description: 'Basse contrôlée',
+          },
+          piano: {
+            name: '🎹 Piano Doux',
+            description: 'Piano doux et régulier',
+          },
+          aggressive: {
+            name: '🔥 Agressif',
+            description: 'Son agressif et punchant',
+          },
+          brass: {
+            name: '🎺 Section Cuivres',
+            description: 'Cuivres brillants et homogènes',
+          },
+          snare: {
+            name: '🥁 Caisse Claire',
+            description: 'Caisse claire percutante',
+          },
+          broadcast: {
+            name: '🎤 Voix Radio',
+            description: 'Voix radio professionnelle',
+          },
+        },
+        labels: {
+          threshold: 'Seuil',
+          ratio: 'Ratio',
+          attack: 'Attaque',
+        },
+      },
+    },
   },
 
-  // Raccourcis et conseils
-  tips: {
-    keyboardShortcuts: 'Raccourcis clavier',
-    clickAndDrag: 'Cliquer et faire glisser',
-    doubleClick: 'Double-clic',
-    rightClick: 'Clic droit',
-    pinchToZoom: 'Pincer pour zoomer',
-    swipeToNavigate: 'Glisser pour naviguer',
-    tapToSelect: 'Toucher pour sélectionner',
-    holdForOptions: 'Maintenir pour les options',
-    shakeToReset: 'Secouer pour réinitialiser',
+  // Visualiseurs audio
+  visualizers: {
+    // Modes de visualisation
+    modes: {
+      levels: 'Niveaux',
+      spectrum: 'Spectre',
+      oscilloscope: 'Oscillo',
+      '3d': '3D',
+    },
+
+    // VU-mètres
+    levelMeter: {
+      title: 'Niveaux',
+      phase: 'Phase',
+      left: 'L',
+      right: 'R',
+    },
+
+    // Analyseur de spectre
+    spectrumAnalyzer: {
+      title: 'Analyseur de Spectre',
+    },
+
+    // Oscilloscope
+    oscilloscope: {
+      title: 'Oscilloscope',
+    },
+
+    // Visualiseur 3D
+    visualizer3d: {
+      title: 'Visualiseur 3D',
+      modes: {
+        spectrum: 'Spectre',
+        intensity: 'Intensité',
+        phase: 'Phase',
+      },
+    },
+
+    // Contrôles généraux
+    controls: {
+      grid: 'Grille',
+      labels: 'Labels',
+      color: 'Couleur',
+      settings: 'Paramètres',
+    },
+
+    // Schémas de couleurs
+    colorSchemes: {
+      classic: 'Classique',
+      gradient: 'Dégradé',
+      heat: 'Thermique',
+    },
   },
 } as const;

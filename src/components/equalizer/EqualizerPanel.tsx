@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import { EqualizerBand } from './EqualizerBand';
 import { EqualizerBand as BandType } from './types';
+import { useAudioTheme } from '../../theme/hooks/useAudioTheme';
+import { useTranslation } from '../../i18n';
 
 interface EqualizerPanelProps {
   bands: BandType[];
@@ -27,20 +29,26 @@ export const EqualizerPanel: React.FC<EqualizerPanelProps> = ({
   onBandChange,
   onToggleEnabled,
 }) => {
+  const audioTheme = useAudioTheme();
+  const themedStyles = createStyles(audioTheme);
+  const { t } = useTranslation();
   return (
-    <View style={styles.container}>
+    <View style={themedStyles.container}>
       {/* Header avec switch principal */}
-      <View style={styles.header}>
-        <Text style={styles.title}>Égaliseur Audio</Text>
-        <View style={styles.switchContainer}>
-          <Text style={[styles.switchLabel, { opacity: enabled ? 1 : 0.5 }]}>
-            {enabled ? 'Activé' : 'Désactivé'}
+      <View style={themedStyles.header}>
+        <Text style={themedStyles.title}>{t('audio:equalizer.title')}</Text>
+        <View style={themedStyles.switchContainer}>
+          <Text style={[themedStyles.switchLabel, { opacity: enabled ? 1 : 0.5 }]}>
+            {enabled ? t('audio:equalizer.enabled') : t('audio:equalizer.disabled')}
           </Text>
           <Switch
             value={enabled}
             onValueChange={onToggleEnabled}
-            trackColor={{ false: '#E0E0E0', true: '#4CAF50' }}
-            thumbColor={enabled ? '#2E7D32' : '#BDBDBD'}
+            trackColor={{ 
+              false: audioTheme.colors.moduleBackground, 
+              true: audioTheme.colors.rmsNormal 
+            }}
+            thumbColor={enabled ? audioTheme.colors.rmsNormal : audioTheme.colors.text}
           />
         </View>
       </View>
@@ -49,8 +57,8 @@ export const EqualizerPanel: React.FC<EqualizerPanelProps> = ({
       <ScrollView 
         horizontal 
         showsHorizontalScrollIndicator={false}
-        style={styles.bandsContainer}
-        contentContainerStyle={styles.bandsContent}
+        style={themedStyles.bandsContainer}
+        contentContainerStyle={themedStyles.bandsContent}
       >
         {bands.map((band, index) => (
           <EqualizerBand
@@ -63,24 +71,24 @@ export const EqualizerPanel: React.FC<EqualizerPanelProps> = ({
       </ScrollView>
 
       {/* Indicateur de courbe EQ */}
-      <View style={styles.curveIndicator}>
-        <Text style={styles.curveText}>
-          Courbe de réponse en fréquence
+      <View style={themedStyles.curveIndicator}>
+        <Text style={themedStyles.curveText}>
+          {t('audio:equalizer.frequencyResponse')}
         </Text>
-        <View style={styles.curveLine} />
+        <View style={themedStyles.curveLine} />
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (audioTheme: ReturnType<typeof useAudioTheme>) => StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
-    marginHorizontal: 16,
-    marginVertical: 8,
-    shadowColor: '#000',
+    backgroundColor: audioTheme.colors.moduleBackground,
+    borderRadius: audioTheme.spacing.md,
+    padding: audioTheme.spacing.md,
+    marginHorizontal: audioTheme.spacing.md,
+    marginVertical: audioTheme.spacing.sm,
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -93,43 +101,44 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: audioTheme.spacing.lg,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    fontSize: audioTheme.typography.moduleTitle.fontSize,
+    fontWeight: audioTheme.typography.moduleTitle.fontWeight,
+    color: audioTheme.colors.text,
   },
   switchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: audioTheme.spacing.sm,
   },
   switchLabel: {
-    fontSize: 14,
-    color: '#666',
-    fontWeight: '500',
+    fontSize: audioTheme.typography.parameterLabel.fontSize,
+    color: audioTheme.colors.text,
+    fontWeight: audioTheme.typography.parameterLabel.fontWeight,
   },
   bandsContainer: {
-    marginBottom: 16,
+    marginBottom: audioTheme.spacing.md,
   },
   bandsContent: {
-    paddingHorizontal: 8,
+    paddingHorizontal: audioTheme.spacing.sm,
   },
   curveIndicator: {
     alignItems: 'center',
-    paddingTop: 16,
+    paddingTop: audioTheme.spacing.md,
     borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
+    borderTopColor: audioTheme.colors.moduleBackground,
   },
   curveText: {
-    fontSize: 12,
-    color: '#757575',
-    marginBottom: 8,
+    fontSize: audioTheme.typography.parameterLabel.fontSize,
+    color: audioTheme.colors.text,
+    opacity: 0.7,
+    marginBottom: audioTheme.spacing.sm,
   },
   curveLine: {
     height: 2,
-    backgroundColor: '#4CAF50',
+    backgroundColor: audioTheme.colors.rmsNormal,
     width: '80%',
     borderRadius: 1,
   },

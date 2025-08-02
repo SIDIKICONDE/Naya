@@ -22,6 +22,7 @@ import {
   type AudioFileInfo,
   type PresetItem,
 } from '../components/equalizer';
+import { useAudioTheme } from '../theme/hooks/useAudioTheme';
 
 // Import du TurboModule (sera disponible après compilation)
 // import AudioEqualizer from '../specs/AudioEqualizer';
@@ -33,6 +34,9 @@ export const EqualizerScreen: React.FC = () => {
   const [currentFile, setCurrentFile] = useState<AudioFileInfo | undefined>();
   const [currentPreset, setCurrentPreset] = useState<string>('flat');
   const [loading, setLoading] = useState(false);
+
+  const audioTheme = useAudioTheme();
+  const themedStyles = createStyles(audioTheme);
 
   // Gestion des changements de bandes
   const handleBandChange = useCallback(async (bandIndex: number, gain: number) => {
@@ -170,9 +174,9 @@ export const EqualizerScreen: React.FC = () => {
   }, [bands]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={themedStyles.container}>
       <ScrollView 
-        style={styles.scrollView}
+        style={themedStyles.scrollView}
         showsVerticalScrollIndicator={false}
       >
         {/* Sélecteur de fichier audio */}
@@ -202,10 +206,10 @@ export const EqualizerScreen: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (audioTheme: ReturnType<typeof useAudioTheme>) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0F0F0',
+    backgroundColor: audioTheme.colors.moduleBackground,
   },
   scrollView: {
     flex: 1,
