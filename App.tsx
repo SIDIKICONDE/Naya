@@ -1,22 +1,35 @@
+/**
+ * Application audio professionnelle
+ * Interface audio complète et fonctionnelle avec support du thème système
+ */
+
 import React from 'react';
-import {
-  StatusBar,
-  useColorScheme,
-} from 'react-native';
+import { StatusBar } from 'react-native';
+import { ThemeProvider, useTheme } from './src/theme/providers/ThemeProvider';
+import { AudioInterfaceView } from './src/components/audio/AudioInterfaceView';
+import FFmpegTestComponent from './src/components/audio/FFmpegTestComponent';
 
-import { EqualizerScreen } from './src/screens/EqualizerScreen';
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
+const AppContent: React.FC = () => {
+  const { theme } = useTheme();
+  
   return (
     <>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor="#F0F0F0"
+        barStyle={theme.colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+        backgroundColor="transparent"
+        translucent
       />
-      <EqualizerScreen />
+      <FFmpegTestComponent />
     </>
+  );
+};
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
+
   );
 }
 

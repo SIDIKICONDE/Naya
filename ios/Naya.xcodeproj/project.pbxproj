@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		0C80B921A6F3F58F76C31292 /* libPods-Naya.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-Naya.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		6FCE135F2E3C61A100652A3A /* NativeAudioEqualizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE135D2E3C61A100652A3A /* NativeAudioEqualizer.cpp */; };
-		6FCE13622E3C61D100652A3A /* NativeAudioEqualizerProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE13612E3C61D100652A3A /* NativeAudioEqualizerProvider.mm */; };
+
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C517854342D3A36970F25C13 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		D8D82BC8720F4FF583B06C8F /* NativeFFmpegModuleProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28E736A4F239402D84DB19E6 /* NativeFFmpegModuleProvider.mm */; };
+		F826F5C77C324376BE6304A1 /* NativeFFmpegModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FBB274C6CAC4E568876B235 /* NativeFFmpegModule.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,16 +22,17 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Naya/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Naya/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Naya/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		186B928A0232457F8328E52C /* NativeFFmpegModuleProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeFFmpegModuleProvider.h; sourceTree = "<group>"; };
+		28E736A4F239402D84DB19E6 /* NativeFFmpegModuleProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NativeFFmpegModuleProvider.mm; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-Naya.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naya.debug.xcconfig"; path = "Target Support Files/Pods-Naya/Pods-Naya.debug.xcconfig"; sourceTree = "<group>"; };
+		4FBB274C6CAC4E568876B235 /* NativeFFmpegModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/NativeFFmpegModule.cpp; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Naya.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naya.release.xcconfig"; path = "Target Support Files/Pods-Naya/Pods-Naya.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-Naya.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Naya.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6FCE135C2E3C61A100652A3A /* NativeAudioEqualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/NativeAudioEqualizer.h; sourceTree = SOURCE_ROOT; };
-		6FCE135D2E3C61A100652A3A /* NativeAudioEqualizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../src/native/NativeAudioEqualizer.cpp; sourceTree = SOURCE_ROOT; };
-		6FCE13602E3C61D100652A3A /* NativeAudioEqualizerProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeAudioEqualizerProvider.h; sourceTree = "<group>"; };
-		6FCE13612E3C61D100652A3A /* NativeAudioEqualizerProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NativeAudioEqualizerProvider.mm; sourceTree = "<group>"; };
+
 		6FFAFD9E2E3C5B5600A342CD /* Naya-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Naya-Bridging-Header.h"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Naya/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Naya/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8225ED5F6A6E4448B48B47BF /* NativeFFmpegModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../src/native/NativeFFmpegModule.h; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -67,18 +69,11 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6FCE135E2E3C61A100652A3A /* native */ = {
-			isa = PBXGroup;
-			children = (
-				6FCE135C2E3C61A100652A3A /* NativeAudioEqualizer.h */,
-				6FCE135D2E3C61A100652A3A /* NativeAudioEqualizer.cpp */,
-			);
-			path = ../src/native;
-			sourceTree = "<group>";
-		};
+
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FFFF0001FFFF0001FFFF0001 /* TurboModules */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -86,9 +81,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				6FCE13602E3C61D100652A3A /* NativeAudioEqualizerProvider.h */,
-				6FCE13612E3C61D100652A3A /* NativeAudioEqualizerProvider.mm */,
-				6FCE135E2E3C61A100652A3A /* native */,
+
 				13B07FAE1A68108700A75B9A /* Naya */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -116,6 +109,17 @@
 				5709B34CF0A7D63546082F79 /* Pods-Naya.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FFFF0001FFFF0001FFFF0001 /* TurboModules */ = {
+			isa = PBXGroup;
+			children = (
+				8225ED5F6A6E4448B48B47BF /* NativeFFmpegModule.h */,
+				4FBB274C6CAC4E568876B235 /* NativeFFmpegModule.cpp */,
+				186B928A0232457F8328E52C /* NativeFFmpegModuleProvider.h */,
+				28E736A4F239402D84DB19E6 /* NativeFFmpegModuleProvider.mm */,
+			);
+			name = TurboModules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,9 +270,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FCE135F2E3C61A100652A3A /* NativeAudioEqualizer.cpp in Sources */,
-				6FCE13622E3C61D100652A3A /* NativeAudioEqualizerProvider.mm in Sources */,
+
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+				F826F5C77C324376BE6304A1 /* NativeFFmpegModule.cpp in Sources */,
+				D8D82BC8720F4FF583B06C8F /* NativeFFmpegModuleProvider.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,17 +289,36 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8GNN55S9HG;
 				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../FFmpeg-iOS/include\"",
+				);
 				INFOPLIST_FILE = Naya/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
+					"$(inherited)",
+					"\"$(SRCROOT)/../FFmpeg-iOS/lib\"",
+				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
+					"-lavformat",
+					"-lavcodec",
+					"-lavutil",
+					"-lswscale",
+					"-lswresample",
+					"-lavfilter",
+					"-lavdevice",
+					"-lz",
+					"-lbz2",
+					"-liconv",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Naya;
@@ -313,17 +337,36 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8GNN55S9HG;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../FFmpeg-iOS/include\"",
+				);
 				INFOPLIST_FILE = Naya/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
+					"$(inherited)",
+					"\"$(SRCROOT)/../FFmpeg-iOS/lib\"",
+				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
+					"-lavformat",
+					"-lavcodec",
+					"-lavutil",
+					"-lswscale",
+					"-lswresample",
+					"-lavfilter",
+					"-lavdevice",
+					"-lz",
+					"-lbz2",
+					"-liconv",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Naya;

@@ -1,9 +1,21 @@
 <resources>
-
-    <!-- Base application theme. -->
+    <!-- Light theme configuration for Android -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
+        <!-- Status bar appearance -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        
+        <!-- Navigation bar -->
+        <item name="android:navigationBarColor">#FAFAFA</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        
+        <!-- Window background -->
+        <item name="android:windowBackground">#FAFAFA</item>
+        
+        <!-- EditText background -->
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+        
+        <!-- Ensure theme follows system -->
+        <item name="android:forceDarkAllowed">false</item>
     </style>
-
 </resources>

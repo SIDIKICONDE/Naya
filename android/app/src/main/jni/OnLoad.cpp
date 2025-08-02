@@ -34,6 +34,7 @@
 #include <fbjni/fbjni.h>
 #include <react/renderer/componentregistry/ComponentDescriptorProviderRegistry.h>
 #include <rncore.h>
+#include "NativeFFmpegModule.h"
 
 // === ÉGALISEUR AUDIO INCLUDES ===
 // #include <NativeAudioEqualizer.h>  // TODO: Activer quand NativeAudioEqualizer.h sera implémenté
@@ -75,11 +76,10 @@ cxxModuleProvider(const std::string &name,
   //   return std::make_shared<NativeCxxModuleExample>(jsInvoker);
   // }
 
-  // === ÉGALISEUR AUDIO MODULE ===
-  // TODO: Activer quand NativeAudioEqualizer sera implémenté
-  // if (name == facebook::react::NativeAudioEqualizer::kModuleName) {
-  //   return std::make_shared<facebook::react::NativeAudioEqualizer>(jsInvoker);
-  // }
+  // Enregistrer le module FFmpeg
+  if (name == NativeFFmpegModule::kModuleName) {
+    return std::make_shared<NativeFFmpegModule>(jsInvoker);
+  }
 
   // And we fallback to the CXX module providers autolinked
   return autolinking_cxxModuleProvider(name, jsInvoker);

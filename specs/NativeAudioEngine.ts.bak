@@ -1,0 +1,113 @@
+/**
+ * Spécification TurboModule temporaire pour le moteur audio
+ * Version mock pour développement de l'interface
+ */
+
+import { TurboModule, TurboModuleRegistry } from 'react-native';
+
+export interface Spec extends TurboModule {
+  // Configuration et initialisation
+  readonly initialize: (sampleRate: number, bufferSize: number, channels: number) => Promise<boolean>;
+  readonly shutdown: () => Promise<void>;
+  readonly isInitialized: () => boolean;
+  
+  // Gestion des modules
+  readonly createModule: (type: string, config: string) => string;
+  readonly destroyModule: (moduleId: string) => void;
+  readonly getModuleState: (moduleId: string) => string;
+  readonly setModuleState: (moduleId: string, state: string) => void;
+  
+  // Paramètres des modules
+  readonly setParameter: (moduleId: string, parameterId: string, value: number) => void;
+  readonly getParameter: (moduleId: string, parameterId: string) => number;
+  readonly getParameterInfo: (moduleId: string, parameterId: string) => string;
+  
+  // Pipeline et connexions
+  readonly connectModules: (sourceId: string, sourceOutput: number, targetId: string, targetInput: number) => void;
+  readonly disconnectModules: (sourceId: string, targetId: string) => void;
+  readonly setModuleEnabled: (moduleId: string, enabled: boolean) => void;
+  readonly setModuleBypassed: (moduleId: string, bypassed: boolean) => void;
+  
+  // Traitement audio
+  readonly startProcessing: () => Promise<void>;
+  readonly stopProcessing: () => Promise<void>;
+  readonly isProcessing: () => boolean;
+  readonly getLatency: () => number;
+  
+  // Analyse et métriques
+  readonly getSpectrumData: (moduleId: string) => Float32Array;
+  readonly getAudioMetrics: () => string;
+  readonly getPerformanceMetrics: () => string;
+  readonly getGainReduction: (moduleId: string) => number;
+  
+  // Presets et état
+  readonly savePreset: (name: string, category: string) => string;
+  readonly loadPreset: (presetId: string) => void;
+  readonly deletePreset: (presetId: string) => void;
+  readonly listPresets: () => string;
+  readonly exportState: () => string;
+  readonly importState: (state: string) => void;
+  
+  // Configuration des effets
+  readonly setReverbConfig: (moduleId: string, config: string) => void;
+  readonly setDelayConfig: (moduleId: string, config: string) => void;
+  readonly setCompressorConfig: (moduleId: string, config: string) => void;
+  readonly setEQBand: (moduleId: string, bandIndex: number, frequency: number, gain: number, q: number) => void;
+  
+  // Utilitaires
+  readonly getAvailableModuleTypes: () => string[];
+  readonly validatePipeline: () => string;
+  readonly optimizePipeline: () => void;
+}
+
+// Mock implementation temporaire
+const mockModule: Spec = {
+  initialize: async () => true,
+  shutdown: async () => {},
+  isInitialized: () => true,
+  createModule: (type: string) => `${type}_${Date.now()}`,
+  destroyModule: () => {},
+  getModuleState: () => '{}',
+  setModuleState: () => {},
+  setParameter: () => {},
+  getParameter: () => 0,
+  getParameterInfo: () => '{}',
+  connectModules: () => {},
+  disconnectModules: () => {},
+  setModuleEnabled: () => {},
+  setModuleBypassed: () => {},
+  startProcessing: async () => {},
+  stopProcessing: async () => {},
+  isProcessing: () => false,
+  getLatency: () => 10,
+  getSpectrumData: () => new Float32Array(1024).fill(0).map(() => Math.random() * -60),
+  getAudioMetrics: () => JSON.stringify({
+    peak: { left: -20, right: -18 },
+    rms: { left: -30, right: -28 }
+  }),
+  getPerformanceMetrics: () => JSON.stringify({
+    cpuUsage: 15,
+    memoryUsage: 50,
+    latency: 10,
+    processingTime: 2
+  }),
+  getGainReduction: () => 0,
+  savePreset: () => 'preset_id',
+  loadPreset: () => {},
+  deletePreset: () => {},
+  listPresets: () => JSON.stringify([
+    { id: '1', name: 'Default', category: 'Factory' },
+    { id: '2', name: 'Vocal', category: 'Factory' }
+  ]),
+  exportState: () => '{}',
+  importState: () => {},
+  setReverbConfig: () => {},
+  setDelayConfig: () => {},
+  setCompressorConfig: () => {},
+  setEQBand: () => {},
+  getAvailableModuleTypes: () => ['PARAMETRIC_EQ', 'COMPRESSOR', 'REVERB'],
+  validatePipeline: () => '[]',
+  optimizePipeline: () => {},
+};
+
+export default mockModule;
